@@ -1,0 +1,21 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/e2e",
+    "module": "commonjs",
+    "baseUrl": "../node_modules",
+    "strict": true,
+    "target": "es2018",
+    "types": [
+      "cypress"
+    ],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "integration/*.ts",
+    "../node_modules/cypress"
+  ]
+}
