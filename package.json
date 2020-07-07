@@ -16,9 +16,6 @@
     "preset": "jest-preset-angular",
     "setupFilesAfterEnv": [
       "<rootDir>/src/setupJest.ts"
-    ],
-    "testPathIgnorePatterns": [
-      "<rootDir>/src/test.ts"
     ]
   },
   "private": true,
@@ -47,6 +44,8 @@
     "cypress": "^4.9.0",
     "jest": "^26.1.0",
     "jest-preset-angular": "^8.2.1",
+    "json-server": "^0.16.1",
+    "msw": "^0.19.5",
     "start-server-and-test": "^1.11.0",
     "ts-loader": "^7.0.5",
     "ts-node": "~8.3.0",
