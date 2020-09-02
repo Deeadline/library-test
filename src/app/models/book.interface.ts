@@ -1,3 +1,6 @@
+import {UserCommentInterface} from './user-comment.interface';
+import {UserNoteInterface} from './user-note.interface';
+
 export interface BookInterface {
   id?: number;
   title: string;
@@ -7,4 +10,6 @@ export interface BookInterface {
   imageUrl?: string;
   author: string;
   publishingHouse: string;
+  comments?: UserCommentInterface[];
+  notes?: UserNoteInterface[];
 }
