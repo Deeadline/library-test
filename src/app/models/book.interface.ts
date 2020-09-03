@@ -8,6 +8,7 @@ export interface BookInterface {
   averageNote?: number;
   description?: string;
   imageUrl?: string;
+  isLoaned?: boolean;
   author: string;
   publishingHouse: string;
   comments?: UserCommentInterface[];
