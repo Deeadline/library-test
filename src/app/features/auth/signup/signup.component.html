@@ -1,0 +1,59 @@
+<div class="container" fxLayout fxLayoutAlign="center center" *ngIf="!isLoading else loader">
+  <form [formGroup]="signupForm" (ngSubmit)="submit()">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Signup</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="email" formControlName="email" type="email">
+            <mat-error *ngIf="signupForm.get('email').hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="signupForm.get('email').hasError('email')">
+              Wrong email
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="username" formControlName="username">
+            <mat-error *ngIf="signupForm.get('username').hasError('required')">
+              Username is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="password" formControlName="password" type="password">
+            <mat-hint [ngStyle]="signupForm.get('password').hasError('password') ? {'color':'red'} : {}">
+              Minimum 6 characters with number and special character
+            </mat-hint>
+            <mat-error *ngIf="signupForm.get('password').hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="repeat password" formControlName="repeatPassword" type="password">
+            <mat-error *ngIf="signupForm.get('repeatPassword').hasError('required')">
+              Repeat password is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="signupForm.get('repeatPassword').hasError('compare')">
+              Passwords are not same!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Register</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
+
+<ng-template #loader>
+  <mat-spinner color="accent" mode="indeterminate" *ngIf="isLoading"></mat-spinner>
+</ng-template>

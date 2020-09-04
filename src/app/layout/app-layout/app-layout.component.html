@@ -1,0 +1,38 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-divider></mat-divider>
+    <mat-nav-list class="mat-nav-list">
+      <a mat-list-item [routerLink]="['book']" [routerLinkActive]="'active'" class="mat-nav-list-item">
+        Books
+        <mat-icon>library_books</mat-icon>
+      </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item [routerLink]="['myBooks']" [routerLinkActive]="'active'" class="mat-nav-list-item">
+        My books
+        <mat-icon>menu_book</mat-icon>
+      </a>
+      <mat-divider></mat-divider>
+      <a mat-list-item (click)="logout()" class="mat-nav-list-item">
+        Logout
+        <mat-icon></mat-icon>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Library</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

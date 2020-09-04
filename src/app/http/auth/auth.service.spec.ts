@@ -5,14 +5,17 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {RequestInterceptor} from '../request.interceptor';
 import {AuthRequestInterface} from '../../models/auth-request.interface';
 import {UserInterface} from '../../models/user.interface';
+import {Router} from '@angular/router';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('AuthService', () => {
   let service: AuthService;
   let httpTestingController: HttpTestingController;
+  let routerMock: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule.withRoutes([])],
       providers: [
         AuthService,
         {
@@ -22,6 +25,7 @@ describe('AuthService', () => {
         }
       ]
     });
+    routerMock = TestBed.inject(Router);
     service = TestBed.inject(AuthService);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
@@ -100,25 +104,16 @@ describe('AuthService', () => {
     expect(result.message).toEqual(expectedMessage);
   });
 
-  test('Logout() should return true', () => {
-    let result: boolean = null;
-    service.logout().subscribe(response => {
-      result = response;
-    });
-    const request = httpTestingController.expectOne(`${service.BASE_URL}logout`);
-    request.flush(1);
-    httpTestingController.verify();
-    expect(result).toBeTruthy();
+  test('Logout() should remove isAuthenticated from localStorage when user is logged', () => {
+    localStorage.setItem('isAuthenticated', 'true');
+    spyOn(routerMock, 'navigate');
+    service.logout();
+    expect(localStorage.getItem('isAuthenticated')).toBeNull();
   });
 
-  test('Logout() should return false', () => {
-    let result: boolean = null;
-    service.logout().subscribe(response => {
-      result = response;
-    });
-    const request = httpTestingController.expectOne(`${service.BASE_URL}logout`);
-    request.flush(0);
-    httpTestingController.verify();
-    expect(result).toBeFalsy();
+  test('Logout() should navigate to login after user logout', () => {
+    const navigateSpy = spyOn(routerMock, 'navigate');
+    service.logout();
+    expect(navigateSpy).toHaveBeenCalledWith(['/auth/login']);
   });
 });

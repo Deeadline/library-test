@@ -3,6 +3,7 @@ import {UserInterface} from '../../models/user.interface';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthRequestInterface} from '../../models/auth-request.interface';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class AuthService {
   readonly BASE_URL = 'http://localhost:4200/';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {
   }
 
@@ -28,7 +30,8 @@ export class AuthService {
     return this.http.post<AuthRequestInterface>(`${this.BASE_URL}signup`, payload);
   }
 
-  public logout(): Observable<boolean> {
-    return this.http.delete<boolean>(`${this.BASE_URL}logout`);
+  public logout(): void {
+    localStorage.removeItem('isAuthenticated');
+    this.router.navigate(['/auth/login']);
   }
 }
