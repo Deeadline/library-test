@@ -20,7 +20,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatButtonModule} from '@angular/material/button';
-import {ModalComponent} from './modal/modal.component';
 import {ConfirmationModalComponent} from './confirmation-modal/confirmation-modal.component';
 import {PermissionDirective} from './directive/permission.directive';
 import {CalendarModule} from 'primeng/calendar';
@@ -29,7 +28,9 @@ import {InputTextModule} from 'primeng/inputtext';
 
 
 @NgModule({
-  declarations: [ModalComponent, ConfirmationModalComponent, PermissionDirective],
+  declarations: [
+    ConfirmationModalComponent, PermissionDirective
+  ],
   imports: [
     CommonModule,
     MatInputModule,
@@ -78,7 +79,6 @@ import {InputTextModule} from 'primeng/inputtext';
     MatProgressSpinnerModule,
     MatChipsModule,
     MatDialogModule,
-    ModalComponent,
     ConfirmationModalComponent,
     PermissionDirective,
     CalendarModule,

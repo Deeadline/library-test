@@ -1,4 +1,65 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.main-wrapper {
+  height: 100vh;
+}
+
+.container {
+  height: 100%;
+
+  form {
+    width: 30rem;
+
+    .col {
+      margin: .5rem 0;
+    }
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    mat-card-actions {
+      text-align: right;
+    }
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mat-nav-list-item {
+  .mat-list-item-content {
+    justify-content: space-between;
+  }
+}
+
+.ui-multiselect {
+  width: 10rem;
+
+  .ui-multiselect-panel {
+    right: 0;
+    left: unset !important;
+  }
+}
+
+.grid-container {
+  margin: 2rem;
+}
+
+.wrapper {
+  display: flex;
+  height: 90vh;
+  align-items: center;
+  flex-direction: column;
+}
