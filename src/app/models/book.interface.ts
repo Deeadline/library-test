@@ -1,5 +1,6 @@
 import {UserCommentInterface} from './user-comment.interface';
 import {UserNoteInterface} from './user-note.interface';
+import {UserInterface} from './user.interface';
 
 export interface BookInterface {
   id?: number;
@@ -9,6 +10,7 @@ export interface BookInterface {
   description?: string;
   imageUrl?: string;
   isLoaned?: boolean;
+  loanedBy?: UserInterface;
   author: string;
   publishingHouse: string;
   comments?: UserCommentInterface[];

@@ -8,6 +8,8 @@ import {BookDataProvider} from '../../../../data-providers/book/book.data-provid
 import {MatDialog} from '@angular/material/dialog';
 import {debounceTime, distinctUntilChanged, filter, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {ConfirmationModalComponent} from '../../../../shared/confirmation-modal/confirmation-modal.component';
+import {AuthDataProvider} from '../../../../data-providers/auth/auth.data-provider';
+import {UserInterface} from '../../../../models/user.interface';
 
 @Component({
   selector: 'app-book-list',
@@ -34,8 +36,10 @@ export class BookListComponent implements OnInit {
     }
   ));
   public selectedNotes: SelectItem[];
+  private user: UserInterface;
 
   constructor(
+    private authDataProvider: AuthDataProvider,
     private bookDataProvider: BookDataProvider,
     private dialog: MatDialog
   ) {
@@ -60,7 +64,10 @@ export class BookListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.queryParams.next(this.qp);
+    this.authDataProvider.user$.subscribe(user => {
+      this.user = user;
+      this.queryParams.next(this.qp);
+    });
   }
 
   private findAll(): void {
@@ -97,10 +104,31 @@ export class BookListComponent implements OnInit {
     confirmationDialogRef.afterClosed().subscribe(accepted => {
       if (accepted) {
         book.isLoaned = true;
+        book.loanedBy = this.user;
         this.bookDataProvider.update(book.id, book)
           .subscribe(x => {
             const indexOf = this.books.indexOf(book);
             this.books[indexOf].isLoaned = true;
+            this.books[indexOf].loanedBy = this.user;
+          });
+      }
+    });
+  }
+
+  public returnBook(book: BookInterface): void {
+    const confirmationDialogRef = this.dialog.open(ConfirmationModalComponent, {
+      width: '400px',
+      data: book
+    });
+    confirmationDialogRef.afterClosed().subscribe(accepted => {
+      if (accepted) {
+        book.isLoaned = false;
+        book.loanedBy = null;
+        this.bookDataProvider.update(book.id, book)
+          .subscribe(x => {
+            const indexOf = this.books.indexOf(book);
+            this.books[indexOf].isLoaned = true;
+            this.books[indexOf].loanedBy = null;
           });
       }
     });

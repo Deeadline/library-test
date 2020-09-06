@@ -46,6 +46,9 @@
           <button mat-icon-button type="button" *ngIf="!book.isLoaned" (click)="loanBook(book)">
             <mat-icon>local_library</mat-icon>
           </button>
+          <button mat-icon-button type="button" *ngIf="book.isLoaned" (click)="returnBook(book)">
+            <mat-icon>local_library</mat-icon>
+          </button>
           <a
             mat-icon-button
             type="button"
