@@ -45,7 +45,7 @@ describe('AuthService', () => {
 
   test('Login() should return provided user', () => {
     let result: AuthRequestInterface = null;
-    const loginRequest = {username: 'admin@test.com', password: 'admin2020'};
+    const loginRequest = {username: 'admin@test.com', password: 'admin2020'} as UserInterface;
     service.login(loginRequest).subscribe(response => {
       result = response;
     });
@@ -60,7 +60,7 @@ describe('AuthService', () => {
   test('Login() should contain message', () => {
     let result: AuthRequestInterface = null;
     const expectedMessage = 'login failed';
-    const loginRequest = {username: 'admin@test.com', password: 'admin2020'};
+    const loginRequest = {username: 'admin@test.com', password: 'admin2020'} as UserInterface;
     service.login(loginRequest).subscribe(response => {
       result = response;
     });
@@ -74,7 +74,7 @@ describe('AuthService', () => {
 
   test('Signup() should return new user', () => {
     let result: AuthRequestInterface = null;
-    const signupRequest: UserInterface = {username: 'admin', password: 'test2020'};
+    const signupRequest = {username: 'admin', password: 'test2020'} as UserInterface;
     service.signup(signupRequest).subscribe(response => {
       result = response;
     });
@@ -92,7 +92,7 @@ describe('AuthService', () => {
   test('Signup() should return error message', () => {
     let result: AuthRequestInterface = null;
     const expectedMessage = 'signup failed';
-    const signupRequest: UserInterface = {username: 'admin', password: 'test2020'};
+    const signupRequest = {username: 'admin', password: 'test2020'} as UserInterface;
     service.signup(signupRequest).subscribe(response => {
       result = response;
     });

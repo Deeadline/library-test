@@ -9,13 +9,15 @@ export class PermissionDirective {
   private hasView = false;
 
   @Input() set appPermission(value: string[]) {
-    if (!this.hasView && value.includes(this.authDataProvider.getRole())) {
-      this.viewContainerRef.createEmbeddedView(this.templateRef);
-      this.hasView = true;
-    } else if (this.hasView && !value.includes(this.authDataProvider.getRole())) {
-      this.viewContainerRef.clear();
-      this.hasView = false;
-    }
+    this.authDataProvider.getRole().subscribe(role => {
+      if (!this.hasView && value.includes(role)) {
+        this.viewContainerRef.createEmbeddedView(this.templateRef);
+        this.hasView = true;
+      } else if (this.hasView && !value.includes(role)) {
+        this.viewContainerRef.clear();
+        this.hasView = false;
+      }
+    });
   }
 
   constructor(

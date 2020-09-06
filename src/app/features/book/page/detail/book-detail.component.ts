@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {BookDataProvider} from '../../../../data-providers/book/book.data-provider';
 import {AuthDataProvider} from '../../../../data-providers/auth/auth.data-provider';
 import {UserCommentInterface} from '../../../../models/user-comment.interface';
+import {forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-book-detail',
@@ -30,17 +31,19 @@ export class BookDetailComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.bookDataProvider.getById(+id)
-        .subscribe((book: BookInterface) => {
-          this.book = book;
-          this.currentUserName = this.authDataProvider.currentUsername();
-          this.isLoading = false;
-          this.formGroup = this.formBuilder.group({
-            bookId: [this.book.id],
-            username: [this.currentUserName],
-            comment: [null, [Validators.required, Validators.maxLength(200)]]
-          });
+      forkJoin([
+        this.bookDataProvider.getById(+id),
+        this.authDataProvider.currentUsername()
+      ]).subscribe(([book, currentUsername]: [BookInterface, string]) => {
+        this.book = book;
+        this.currentUserName = currentUsername;
+        this.isLoading = false;
+        this.formGroup = this.formBuilder.group({
+          bookId: [this.book.id],
+          username: [this.currentUserName],
+          comment: [null, [Validators.required, Validators.maxLength(200)]]
         });
+      });
     }
   }
 

@@ -3,7 +3,7 @@ import {AuthService} from '../../http/auth/auth.service';
 import {UserInterface} from '../../models/user.interface';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {AuthRequestInterface} from '../../models/auth-request.interface';
-import {tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -38,13 +38,18 @@ export class AuthDataProvider {
 
   public logout(): void {
     this.authService.logout();
+    this.userSource.next(null);
   }
 
-  public getRole(): string {
-    return this.userSource.getValue()?.role;
+  public getRole(): Observable<string> {
+    return this.user$.pipe(
+      map(user => user.role)
+    );
   }
 
-  public currentUsername(): string {
-    return this.userSource.getValue()?.username;
+  public currentUsername(): Observable<string> {
+    return this.user$.pipe(
+      map(user => user.username)
+    );
   }
 }
