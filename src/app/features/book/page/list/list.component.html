@@ -1,0 +1,67 @@
+<section class="grid-container">
+  <mat-card>
+    <mat-toolbar fxLayout fxLayoutAlign="space-between center">
+      <a
+        *appPermission="['ROLE_ADMINISTRATOR']"
+        mat-icon-button
+        color="warn"
+        [routerLink]="['/app','book','create']">
+        <mat-icon>add_circle</mat-icon>
+      </a>
+      <section fxFlex="50%" fxLayout fxLayoutAlign="space-between center">
+        <span class="ui-float-label">
+        <input pInputText id="float-input" size="30" [formControl]="textInput"/>
+          <label for="float-input">Type author</label>
+          </span>
+        <p-multiSelect
+          [options]="years"
+          [(ngModel)]="selectedYears"
+          (onPanelHide)="onYearHide()"
+          [showHeader]="false"
+          optionLabel="value"
+        >
+        </p-multiSelect>
+        <p-multiSelect
+          [options]="notes"
+          [(ngModel)]="selectedNotes"
+          (onPanelHide)="onNoteHide()"
+          [showHeader]="false"
+          optionLabel="value"
+        >
+        </p-multiSelect>
+      </section>
+    </mat-toolbar>
+    <mat-card-content fxLayout fxLayoutAlign="flex-start center">
+      <mat-card *ngFor="let book of books" style="margin: .5rem; width: 20rem;">
+        <mat-card-header>
+          <mat-card-title>{{book.title}} ({{book.releasedYear}})</mat-card-title>
+          <mat-card-subtitle>Average notes: {{book?.averageNote}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="book?.imageUrl" alt="Random photo"/>
+        <mat-card-content fxLayout="column" fxLayoutAlign="space-around center">
+          <article>{{book.description}}</article>
+          <article>{{book.author}}</article>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-icon-button type="button" *ngIf="!book.isLoaned" (click)="loanBook(book)">
+            <mat-icon>local_library</mat-icon>
+          </button>
+          <a
+            mat-icon-button
+            type="button"
+            [routerLink]="['/app','book','detail',book.id]">
+            <mat-icon>more_horiz</mat-icon>
+          </a>
+          <a
+            *appPermission="['ROLE_ADMINISTRATOR']"
+            mat-icon-button
+            color="primary"
+            type="button"
+            [routerLink]="['/app','book','edit',book.id]">
+            <mat-icon>edit</mat-icon>
+          </a>
+        </mat-card-actions>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+</section>

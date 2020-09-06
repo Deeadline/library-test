@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {BookEditComponent} from './edit/edit.component';
-import {BookCreateComponent} from './create/create.component';
-import {BookListComponent} from './list/list.component';
+import {BookEditComponent} from './page/edit/edit.component';
+import {BookCreateComponent} from './page/create/create.component';
+import {BookListComponent} from './page/list/list.component';
 
 
 const routes: Routes = [

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../../http/auth/auth.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {UserInterface} from '../../../models/user.interface';
+import {UserInterface} from '../../../../models/user.interface';
+import {AuthDataProvider} from '../../../../data-providers/auth/auth.data-provider';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
+    private authService: AuthDataProvider,
     private router: Router,
     private snackBar: MatSnackBar
   ) {

@@ -20,12 +20,16 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatButtonModule} from '@angular/material/button';
-import { ModalComponent } from './modal/modal.component';
-import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
+import {ModalComponent} from './modal/modal.component';
+import {ConfirmationModalComponent} from './confirmation-modal/confirmation-modal.component';
+import {PermissionDirective} from './directive/permission.directive';
+import {CalendarModule} from 'primeng/calendar';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {InputTextModule} from 'primeng/inputtext';
 
 
 @NgModule({
-  declarations: [ModalComponent, ConfirmationModalComponent],
+  declarations: [ModalComponent, ConfirmationModalComponent, PermissionDirective],
   imports: [
     CommonModule,
     MatInputModule,
@@ -48,6 +52,9 @@ import { ConfirmationModalComponent } from './confirmation-modal/confirmation-mo
     MatProgressSpinnerModule,
     MatChipsModule,
     MatDialogModule,
+    CalendarModule,
+    MultiSelectModule,
+    InputTextModule,
   ],
   exports: [
     CommonModule,
@@ -73,6 +80,10 @@ import { ConfirmationModalComponent } from './confirmation-modal/confirmation-mo
     MatDialogModule,
     ModalComponent,
     ConfirmationModalComponent,
+    PermissionDirective,
+    CalendarModule,
+    MultiSelectModule,
+    InputTextModule,
   ]
 })
 export class SharedModule {

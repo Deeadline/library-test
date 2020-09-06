@@ -1,0 +1,15 @@
+<section
+  class="grid-container"
+  fxLayout
+  fxLayoutAlign="center center"
+  *ngIf="!isLoading else loader">
+  <app-book-form-container
+    [model]="model"
+    (submitEvent)="onSubmit($event)">
+
+  </app-book-form-container>
+</section>
+
+<ng-template #loader>
+  <mat-spinner color="accent" mode="indeterminate" *ngIf="isLoading"></mat-spinner>
+</ng-template>

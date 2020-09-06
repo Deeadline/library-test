@@ -1,0 +1,64 @@
+<mat-card class="wrapper" *ngIf="!isLoading else loader">
+  <mat-card-header>
+    <mat-card-header>
+      <mat-card-title>{{book.title}} ({{book.releasedYear}})</mat-card-title>
+      <mat-card-subtitle>Author: {{book.author}}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card-header>
+  <mat-card-content>
+    <section class="card">
+      <article class="card-body">
+        <section *ngIf="!isUserCommentedBook" class="row">
+          <form [formGroup]="formGroup" (ngSubmit)="addComment()">
+            <mat-form-field>
+              <textarea
+                matInput
+                placeholder="Comment"
+                formControlName="comment"
+                [errorStateMatcher]="errorStateMatcher"
+                [style]="{'min-height': '10vh', 'max-height': '10vh'}"
+              ></textarea>
+              <mat-error *ngIf="formGroup.get('comment').getError('required')">
+                Comment is required
+              </mat-error>
+              <mat-error *ngIf="formGroup.get('comment').getError('maxlength') as error">
+                Maximum {{error.requiredLength}} characters
+              </mat-error>
+            </mat-form-field>
+            <button type="submit" class="btn btn-outline-success ml-2">
+              Add comment
+            </button>
+          </form>
+        </section>
+        <section class="row">
+          <article *ngIf="comments.length > 0" class="col-6 my-3">
+            <ng-container *ngFor="let comment of comments">
+              <section class="card my-2" style="max-width: 25vw">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <div class="row">
+                        <div class="col">
+                          User: {{comment.createdBy.username}}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          Opinion: {{comment.comment}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </ng-container>
+          </article>
+        </section>
+      </article>
+    </section>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #loader>
+  <mat-spinner color="accent" mode="indeterminate" *ngIf="isLoading"></mat-spinner>
+</ng-template>

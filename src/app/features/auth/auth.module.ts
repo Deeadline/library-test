@@ -5,8 +5,8 @@ import {AuthRoutingModule} from './auth-routing.module';
 import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../../shared/shared.module';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import { LoginComponent } from './page/login/login.component';
+import { SignupComponent } from './page/signup/signup.component';
 
 
 @NgModule({
