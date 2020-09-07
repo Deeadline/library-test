@@ -13,19 +13,20 @@ import {BookDataProvider} from '../../../../data-providers/book/book.data-provid
 export class BookEditComponent implements OnInit {
   public isLoading = true;
   public model: BookInterface = {} as BookInterface;
+  public bookId: number = null;
 
   constructor(
-    private dataProvider: BookDataProvider,
-    private route: ActivatedRoute,
-    private router: Router,
-    private snackBar: MatSnackBar
+    public dataProvider: BookDataProvider,
+    public route: ActivatedRoute,
+    public router: Router,
+    public snackBar: MatSnackBar
   ) {
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.dataProvider.getById(+id).subscribe((model) => {
+    this.bookId = +(this.route.snapshot.paramMap.get('id'));
+    if (this.bookId) {
+      this.dataProvider.getById(this.bookId).subscribe((model) => {
         this.model = model;
         this.isLoading = false;
       });

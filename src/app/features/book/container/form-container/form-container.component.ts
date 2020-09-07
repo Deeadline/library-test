@@ -10,7 +10,6 @@ import {MyErrorStateMatcher} from '../../../../shared/error-state-matcher';
 })
 export class BookFormContainerComponent implements OnInit {
 
-
   @Input()
   public set model(value: BookInterface) {
     this._model = value;
