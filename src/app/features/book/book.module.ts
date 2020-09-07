@@ -6,12 +6,13 @@ import {BookCreateComponent} from './page/create/create.component';
 import {BookEditComponent} from './page/edit/edit.component';
 import {SharedModule} from '../../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { BookDetailComponent } from './page/detail/book-detail.component';
-import { BookFormContainerComponent } from './container/form-container/form-container.component';
+import {BookDetailComponent} from './page/detail/book-detail.component';
+import {BookFormContainerComponent} from './container/form-container/form-container.component';
+import {BookCommentContainerComponent} from './container/comment-container/comment-container.component';
 
 
 @NgModule({
-  declarations: [BookListComponent, BookCreateComponent, BookEditComponent, BookDetailComponent, BookFormContainerComponent],
+  declarations: [BookListComponent, BookCreateComponent, BookEditComponent, BookDetailComponent, BookFormContainerComponent, BookCommentContainerComponent],
   imports: [
     SharedModule,
     FormsModule,

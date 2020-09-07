@@ -31,27 +31,9 @@
           </form>
         </section>
         <section class="row">
-          <article *ngIf="comments.length > 0" class="col-6 my-3">
-            <ng-container *ngFor="let comment of comments">
-              <section class="card my-2" style="max-width: 25vw">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <div class="row">
-                        <div class="col">
-                          User: {{comment.createdBy.username}}
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          Opinion: {{comment.comment}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </ng-container>
+          <article *ngIf="comments.length" class="col-6 my-3">
+            <app-book-comment-container *ngFor="let comment of comments" [comment]="comment">
+            </app-book-comment-container>
           </article>
         </section>
       </article>
