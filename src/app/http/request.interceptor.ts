@@ -19,7 +19,6 @@ export class RequestInterceptor implements HttpInterceptor {
     switch (requestMethod) {
       case RequestMethodEnum.SIGNUP:
       case RequestMethodEnum.LOGIN: {
-        console.log('el');
         localStorage.setItem('isAuthenticated', 'true');
         request = request.clone({
           body: {

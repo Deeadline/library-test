@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Directive, Input, TemplateRef, ViewContainerRef} from '@angular/core';
+import {Directive, Input, TemplateRef, ViewContainerRef} from '@angular/core';
 import {AuthDataProvider} from '../../data-providers/auth/auth.data-provider';
 
 @Directive({
@@ -23,7 +23,6 @@ export class PermissionDirective {
   constructor(
     private authDataProvider: AuthDataProvider,
     private viewContainerRef: ViewContainerRef,
-    private changeDetectorRef: ChangeDetectorRef,
     private templateRef: TemplateRef<any>
   ) {
   }
