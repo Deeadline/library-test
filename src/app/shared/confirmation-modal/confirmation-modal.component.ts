@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {BookInterface} from '../../models/book.interface';
 
 @Component({
@@ -10,7 +10,8 @@ import {BookInterface} from '../../models/book.interface';
 export class ConfirmationModalComponent implements OnInit {
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public book: BookInterface
+    @Inject(MAT_DIALOG_DATA) public book: BookInterface,
+    public dialogRef: MatDialogRef<ConfirmationModalComponent>
   ) {
   }
 
