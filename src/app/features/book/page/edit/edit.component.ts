@@ -48,7 +48,7 @@ export class BookEditComponent implements OnInit {
         },
         () => {
           this.isLoading = false;
-          this.snackBar.open('Book successfully modified', null, {
+          this.snackBar.open('Book has been successfully modified', null, {
             verticalPosition: 'top', duration: 5000
           });
           this.router.navigate(['/app/book']);

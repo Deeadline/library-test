@@ -22,7 +22,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 describe('BookEditComponent', () => {
   let component: BookEditComponent;
   let fixture: ComponentFixture<BookEditComponent>;
-  let element: HTMLElement;
   let routerMock: Router;
   const mockActivatedRoute = {
     snapshot: {
@@ -68,7 +67,6 @@ describe('BookEditComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BookEditComponent);
     component = fixture.componentInstance;
-    element = fixture.debugElement.nativeElement;
     routerMock = TestBed.inject(Router);
     fixture.detectChanges();
   });
@@ -114,10 +112,9 @@ describe('BookEditComponent', () => {
   test('should display snackBar on complete update', () => {
     spyOn(component.dataProvider, 'update').and.callFake(() => of({}));
     spyOn(component.snackBar, 'open');
-    spyOn(routerMock, 'navigate');
     component.onSubmit(mockedBook);
     expect(component.snackBar.open).toHaveBeenCalledWith(
-      'Book successfully modified', null, {
+      'Book has been successfully modified', null, {
         verticalPosition: 'top', duration: 5000
       });
   });
@@ -131,11 +128,11 @@ describe('BookEditComponent', () => {
   });
 
   test('should display snackBar on error update', () => {
-    spyOn(component.dataProvider, 'update').and.returnValue(throwError({status: 500, error: 'Book not modified'}));
+    spyOn(component.dataProvider, 'update').and.returnValue(throwError({status: 500, error: 'Book has not been modified'}));
     spyOn(component.snackBar, 'open');
     component.onSubmit(mockedBook);
     expect(component.snackBar.open).toHaveBeenCalledWith(
-      'Book not modified', null, {
+      'Book has not been modified', null, {
         verticalPosition: 'top', duration: 5000
       });
   });

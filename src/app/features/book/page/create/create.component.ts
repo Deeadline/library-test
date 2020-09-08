@@ -14,9 +14,9 @@ export class BookCreateComponent implements OnInit {
   public isLoading = true;
 
   constructor(
-    private bookDataProvider: BookDataProvider,
-    private router: Router,
-    private snackBar: MatSnackBar
+    public bookDataProvider: BookDataProvider,
+    public router: Router,
+    public snackBar: MatSnackBar
   ) {
   }
 
@@ -39,7 +39,7 @@ export class BookCreateComponent implements OnInit {
         },
         () => {
           this.isLoading = false;
-          this.snackBar.open('Book successfully added', null, {
+          this.snackBar.open('Book has been successfully added', null, {
             verticalPosition: 'top', duration: 5000
           });
           this.router.navigate(['/app/book']);
