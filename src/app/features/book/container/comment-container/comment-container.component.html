@@ -3,12 +3,15 @@
     <div class="row">
       <div class="col">
         <div class="row">
-          <div class="col">
+          <div class="col-9" id="username">
             User: {{comment.createdBy.username}}
+          </div>
+          <div class="col-3" id="createdAt">
+            Date: {{comment.createdAt | date:'medium'}}
           </div>
         </div>
         <div class="row">
-          <div class="col">
+          <div class="col" id="comment">
             Opinion: {{comment.comment}}
           </div>
         </div>

@@ -35,7 +35,7 @@ export class BookFormContainerComponent implements OnInit {
     this.createForm();
   }
 
-  private createForm(): void {
+  public createForm(): void {
     this.formGroup = this.formBuilder.group({
       id: [null],
       title: [null, [Validators.required]],
@@ -65,7 +65,7 @@ export class BookFormContainerComponent implements OnInit {
     }
   }
 
-  private patchForm(): void {
+  public patchForm(): void {
     if (this.formGroup && this.model) {
       this.formGroup.patchValue(this.model);
     }
