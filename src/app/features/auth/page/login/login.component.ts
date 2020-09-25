@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UserInterface} from '../../../../models/user.interface';
 import {AuthDataProvider} from '../../../../data-providers/auth/auth.data-provider';
+import {MyErrorStateMatcher} from '../../../../shared/error-state-matcher';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     public formBuilder: FormBuilder,
     public authService: AuthDataProvider,
     public router: Router,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public errorStateMatcher: MyErrorStateMatcher
   ) {
   }
 
