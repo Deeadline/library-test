@@ -16,10 +16,10 @@ export class LoginComponent implements OnInit {
   public isLoading = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthDataProvider,
-    private router: Router,
-    private snackBar: MatSnackBar
+    public formBuilder: FormBuilder,
+    public authService: AuthDataProvider,
+    public router: Router,
+    public snackBar: MatSnackBar
   ) {
   }
 

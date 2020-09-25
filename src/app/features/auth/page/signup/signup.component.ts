@@ -5,6 +5,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {UserInterface} from '../../../../models/user.interface';
 import {HttpErrorResponse} from '@angular/common/http';
 import {AuthDataProvider} from '../../../../data-providers/auth/auth.data-provider';
+import {MyErrorStateMatcher} from '../../../../shared/error-state-matcher';
 
 @Component({
   selector: 'app-signup',
@@ -16,10 +17,11 @@ export class SignupComponent implements OnInit {
   public isLoading = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthDataProvider,
-    private router: Router,
-    private snackBar: MatSnackBar
+    public formBuilder: FormBuilder,
+    public authService: AuthDataProvider,
+    public router: Router,
+    public snackBar: MatSnackBar,
+    public errorStateMatcher: MyErrorStateMatcher
   ) {
   }
 
@@ -35,7 +37,7 @@ export class SignupComponent implements OnInit {
 
   public validatePassword(control: FormControl): ValidationErrors | null {
     if (control.parent && control.value !== null && control.value.length > 0) {
-      const numbers = (control.value.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,100}$/g) || []).length;
+      const numbers = (control.value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/g) || []).length;
       return (numbers === 0 || numbers === control.value.length) ?
         {regex: true} : null;
     }

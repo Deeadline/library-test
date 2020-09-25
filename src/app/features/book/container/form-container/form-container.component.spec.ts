@@ -50,13 +50,13 @@ describe('FormContainerComponent', () => {
   });
 
   test('should create form', () => {
-    spyOn(component, 'createForm');
+    spyOn(component, 'createForm').and.callThrough();
     component.ngOnInit();
     expect(component.formGroup).toBeDefined();
   });
 
   test('should contain 4 required fields', () => {
-    spyOn(component, 'createForm');
+    spyOn(component, 'createForm').and.callThrough();
     component.ngOnInit();
     fixture.detectChanges();
     const requiredControls = Object.entries(component.formGroup.controls).map(([key, value]) => {
@@ -71,7 +71,7 @@ describe('FormContainerComponent', () => {
   });
 
   test('should update form', () => {
-    spyOn(component, 'createForm');
+    spyOn(component, 'createForm').and.callThrough();
     component.model = mockedData;
     component.ngOnInit();
     fixture.detectChanges();
@@ -81,8 +81,8 @@ describe('FormContainerComponent', () => {
   });
 
   test('should emit value', () => {
-    spyOn(component.submitEvent, 'emit');
-    spyOn(component, 'createForm');
+    spyOn(component.submitEvent, 'emit').and.callThrough();
+    spyOn(component, 'createForm').and.callThrough();
     component.model = mockedData;
     component.ngOnInit();
     fixture.detectChanges();

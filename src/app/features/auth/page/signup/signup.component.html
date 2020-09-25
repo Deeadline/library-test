@@ -7,43 +7,75 @@
       <mat-card-content>
         <div class="col">
           <mat-form-field>
-            <input matInput placeholder="email" formControlName="email" type="email">
-            <mat-error *ngIf="signupForm.get('email').hasError('required')">
-              Email is <strong>required</strong>
-            </mat-error>
-            <mat-error *ngIf="signupForm.get('email').hasError('email')">
-              Wrong email
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <input matInput placeholder="username" formControlName="username">
-            <mat-error *ngIf="signupForm.get('username').hasError('required')">
+            <input
+              matInput
+              placeholder="username"
+              formControlName="username"
+              type="email"
+              required="required"
+              [errorStateMatcher]="errorStateMatcher"
+            >
+            <mat-error *ngIf="signupForm.get('username')?.hasError('required')">
               Username is <strong>required</strong>
             </mat-error>
+            <mat-error *ngIf="signupForm.get('email')?.hasError('email')">
+              Username should be like email
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col">
           <mat-form-field>
-            <input matInput placeholder="password" formControlName="password" type="password">
-            <mat-hint [ngStyle]="signupForm.get('password').hasError('password') ? {'color':'red'} : {}">
+            <input
+              matInput
+              placeholder="password"
+              formControlName="password"
+              type="password"
+              required="required"
+              [errorStateMatcher]="errorStateMatcher">
+            <mat-hint [ngStyle]="signupForm.get('password')?.hasError('password') ? {'color':'red'} : {}">
               Minimum 6 characters with number and special character
             </mat-hint>
-            <mat-error *ngIf="signupForm.get('password').hasError('required')">
+            <mat-error *ngIf="signupForm.get('password')?.hasError('required')">
               Password is <strong>required</strong>
             </mat-error>
           </mat-form-field>
         </div>
         <div class="col">
           <mat-form-field>
-            <input matInput placeholder="repeat password" formControlName="repeatPassword" type="password">
-            <mat-error *ngIf="signupForm.get('repeatPassword').hasError('required')">
+            <input
+              matInput
+              placeholder="repeat password"
+              formControlName="repeatPassword"
+              type="password"
+              required="required"
+              [errorStateMatcher]="errorStateMatcher"
+            >
+            <mat-error *ngIf="signupForm.get('repeatPassword')?.hasError('required')">
               Repeat password is <strong>required</strong>
             </mat-error>
-            <mat-error *ngIf="signupForm.get('repeatPassword').hasError('compare')">
+            <mat-error *ngIf="signupForm.get('repeatPassword')?.hasError('compare')">
               Passwords are not same!
             </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Favourite author"
+              formControlName="favouriteAuthor"
+              [errorStateMatcher]="errorStateMatcher"
+            >
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Favourite book"
+              formControlName="favouriteBook"
+              [errorStateMatcher]="errorStateMatcher"
+            >
           </mat-form-field>
         </div>
       </mat-card-content>
