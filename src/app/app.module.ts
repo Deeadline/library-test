@@ -9,6 +9,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthLayoutComponent} from './layout/auth-layout/auth-layout.component';
 import {AppLayoutComponent} from './layout/app-layout/app-layout.component';
 import {SharedModule} from './shared/shared.module';
+import {ResponseInterceptor} from './http/response.interceptor';
 
 @NgModule({
   declarations: [
@@ -19,14 +20,19 @@ import {SharedModule} from './shared/shared.module';
   imports: [
     SharedModule,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
+    AppRoutingModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ResponseInterceptor,
       multi: true
     }
   ],

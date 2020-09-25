@@ -3,7 +3,7 @@ import {AuthService} from '../../http/auth/auth.service';
 import {UserInterface} from '../../models/user.interface';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {AuthRequestInterface} from '../../models/auth-request.interface';
-import {map, tap} from 'rxjs/operators';
+import {filter, map, startWith, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,9 @@ export class AuthDataProvider {
   constructor(
     private authService: AuthService
   ) {
-    this.user$ = this.userSource.asObservable();
+    this.user$ = this.userSource.asObservable().pipe(
+      startWith(JSON.parse(localStorage.getItem('user')) as UserInterface)
+    );
   }
 
   public isAuthenticated(): boolean {
@@ -43,12 +45,14 @@ export class AuthDataProvider {
 
   public getRole(): Observable<string> {
     return this.user$.pipe(
+      filter(user => !!user),
       map(user => user.role)
     );
   }
 
   public currentUsername(): Observable<string> {
     return this.user$.pipe(
+      filter(user => !!user),
       map(user => user.username)
     );
   }

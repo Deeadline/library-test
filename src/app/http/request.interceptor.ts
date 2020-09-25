@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {UserInterface} from '../models/user.interface';
 
 enum RequestMethodEnum {
   LOGIN = 'login',
@@ -20,22 +21,15 @@ export class RequestInterceptor implements HttpInterceptor {
       case RequestMethodEnum.SIGNUP:
       case RequestMethodEnum.LOGIN: {
         localStorage.setItem('isAuthenticated', 'true');
+        const user = request.body as UserInterface;
+        user.role = user.username.includes('admin') ? 'ROLE_ADMINISTRATOR' : null;
+        localStorage.setItem('user', JSON.stringify(request.body));
         request = request.clone({
           body: {
-            user: request.body,
+            user,
             message: null
           }
         });
-        return next.handle(request);
-      }
-      case RequestMethodEnum.LOGOUT: {
-        request = request.clone({
-          body: {
-            user: null,
-            message: null
-          },
-        });
-        localStorage.setItem('isAuthenticated', 'false');
         return next.handle(request);
       }
       default:
