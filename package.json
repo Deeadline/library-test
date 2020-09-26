@@ -5,11 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "cypress:open": "start-server-and-test start 4200 \"cypress open\"",
-    "cypress:verify": "cypress verify",
-    "cypress:run": "start-server-and-test start 4200 \"cypress run\"",
+    "test": "jest --testPathPattern=src/app",
+    "server:test": "start-server-and-test start 4200 cypress:open",
+    "server:test:run": "start-server-and-test start 4200 cypress:run",
     "lint": "ng lint"
   },
   "jest": {

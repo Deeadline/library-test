@@ -2,7 +2,7 @@ describe('Home Page', () => {
   before(() => {
     cy.visit('/');
   });
-  it('check the title', () => {
+  test('check the title', () => {
     cy.contains('Resources');
   });
 });
