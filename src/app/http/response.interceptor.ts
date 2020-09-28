@@ -84,14 +84,21 @@ export class ResponseInterceptor implements HttpInterceptor {
     const body = request.body as BookInterface;
     const newBook = {...body, id: lastId + 1} as BookInterface;
     const newBooks = [...books, newBook];
+    localStorage.setItem('books', JSON.stringify(newBooks));
     return of(new HttpResponse({status: 200, body: newBooks}));
   }
 
   private handlePUT(request: HttpRequest<unknown>, id: number, books: BookInterface[]): Observable<HttpResponse<unknown>> {
     const desiredBook = books.find(book => book.id === id);
     const body = request.body as BookInterface;
-    const modifiedBody = {...desiredBook, ...body} as BookInterface;
-    console.log(modifiedBody);
-    return of(new HttpResponse({status: 200, body: modifiedBody}));
+    const modifiedBook = {...desiredBook, ...body} as BookInterface;
+    const modifiedBooks = books.map(book => {
+      if (book.id === id) {
+        return modifiedBook;
+      }
+      return book;
+    });
+    localStorage.setItem('books', JSON.stringify(modifiedBooks));
+    return of(new HttpResponse({status: 200, body: modifiedBook}));
   }
 }
