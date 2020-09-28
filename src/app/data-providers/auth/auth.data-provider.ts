@@ -50,10 +50,9 @@ export class AuthDataProvider {
     );
   }
 
-  public currentUsername(): Observable<string> {
+  public currentUser(): Observable<UserInterface> {
     return this.user$.pipe(
-      filter(user => !!user),
-      map(user => user.username)
+      filter(user => !!user)
     );
   }
 }

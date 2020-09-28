@@ -24,12 +24,13 @@ export class BookEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bookId = +(this.route.snapshot.paramMap.get('id'));
+    this.bookId = +(this.route.snapshot.paramMap.get('book_id'));
     if (this.bookId) {
-      this.dataProvider.getById(this.bookId).subscribe((model) => {
-        this.model = model;
-        this.isLoading = false;
-      });
+      this.dataProvider.getById(this.bookId)
+        .subscribe((model) => {
+          this.model = model;
+          this.isLoading = false;
+        });
     }
   }
 

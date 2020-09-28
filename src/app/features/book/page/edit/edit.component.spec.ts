@@ -25,7 +25,7 @@ describe('BookEditComponent', () => {
   let routerMock: Router;
   const mockActivatedRoute = {
     snapshot: {
-      paramMap: convertToParamMap({id: 1})
+      paramMap: convertToParamMap({book_id: 1})
     }
   };
 

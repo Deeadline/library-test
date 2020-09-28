@@ -75,11 +75,11 @@ describe('AuthService', () => {
 
   test('getUsername() should return value on logged user', () => {
     spyOn(dataProvider, 'user$').and.returnValue(user);
-    dataProvider.currentUsername().subscribe(username => expect(username).toEqual(user.username));
+    dataProvider.currentUser().subscribe(username => expect(username).toEqual(user.username));
   });
 
   test('getUsername() should be empty on unauthenticated user', () => {
     spyOn(dataProvider, 'user$').and.returnValue(null);
-    dataProvider.currentUsername().subscribe(username => expect(username).toBeNull());
+    dataProvider.currentUser().subscribe(username => expect(username).toBeNull());
   });
 });

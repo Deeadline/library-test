@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpParams, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {BookInterface} from '../models/book.interface';
 
@@ -28,38 +28,70 @@ export class ResponseInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const requestMethod = request.url.match(/[^\/]+$/)[0];
+    const requestUrl = request.url.split('/');
+    const id = +(requestUrl[requestUrl.length - 1]);
+    let requestMethod = requestUrl.pop();
+    if (id) {
+      requestMethod = requestUrl.pop();
+    }
     if (requestMethod === RequestMethodEnum.SIGNUP || requestMethod === RequestMethodEnum.LOGIN) {
       return of(new HttpResponse({status: 200, body: request.body}));
     } else if (requestMethod === RequestMethodEnum.BOOKS) {
       const localStorageBooks = JSON.parse(localStorage.getItem('books'));
-      const books = localStorageBooks ? localStorageBooks as BookInterface[] : [mockedBook];
-      if (request.method === 'GET') {
-        if (request.params.keys().length) {
-          const filters = Object.entries(request.params)
-            .filter(([key, value]) => key === 'map')
-            .map(([key, value]: [string, Map<string, string[]>]) => value).pop();
-          const filteredBooks = books.filter(book => {
-            for (const [key, values] of filters) {
-              if (key === 'author') {
-                if (values[0].includes(book[key])) {
-                  return book;
-                }
-              } else {
-                if (values.includes(book[key])) {
-                  return book;
-                }
-              }
-            }
-          });
-          return of(new HttpResponse({status: 200, body: filteredBooks}));
-        }
-        return of(new HttpResponse({status: 200, body: books}));
+      const books = (localStorageBooks ? localStorageBooks as BookInterface[] : [mockedBook])
+        .sort((a, b) => b.id - a.id);
+      switch (request.method) {
+        case 'GET':
+          return this.handleGET(request.params, id, books);
+        case 'POST':
+          return this.handlePOST(request, books);
+        case 'PUT':
+          return this.handlePUT(request, id, books);
+        default:
+          return of(new HttpResponse({status: 200}));
       }
-      if (request.method === 'POST') {
-        
-      }
-      return of(new HttpResponse({status: 200}));
     }
+  }
+
+  private handleGET(params: HttpParams, id: number, books: BookInterface[]): Observable<HttpResponse<unknown>> {
+    if (params.keys().length) {
+      const filters = Object.entries(params)
+        .filter(([key, value]) => key === 'map')
+        .map(([key, value]: [string, Map<string, string[]>]) => value).pop();
+      const filteredBooks = books.filter(book => {
+        for (const [key, values] of filters) {
+          if (key === 'author') {
+            if (values[0].includes(book[key])) {
+              return book;
+            }
+          } else {
+            if (values.includes(book[key])) {
+              return book;
+            }
+          }
+        }
+      });
+      return of(new HttpResponse({status: 200, body: filteredBooks}));
+    } else if (id) {
+      const findBook = books.find(book => book.id === id);
+      return of(new HttpResponse({status: 200, body: findBook}));
+    }
+    return of(new HttpResponse({status: 200, body: books}));
+  }
+
+  private handlePOST(request: HttpRequest<unknown>, books: BookInterface[]): Observable<HttpResponse<unknown>> {
+    const lastId = books.map(book => book.id).pop();
+    const body = request.body as BookInterface;
+    const newBook = {...body, id: lastId + 1} as BookInterface;
+    const newBooks = [...books, newBook];
+    return of(new HttpResponse({status: 200, body: newBooks}));
+  }
+
+  private handlePUT(request: HttpRequest<unknown>, id: number, books: BookInterface[]): Observable<HttpResponse<unknown>> {
+    const desiredBook = books.find(book => book.id === id);
+    const body = request.body as BookInterface;
+    const modifiedBody = {...desiredBook, ...body} as BookInterface;
+    console.log(modifiedBody);
+    return of(new HttpResponse({status: 200, body: modifiedBody}));
   }
 }

@@ -4,6 +4,7 @@ import {BookInterface} from '../../models/book.interface';
 import {Observable} from 'rxjs';
 import {HttpParams} from '@angular/common/http';
 import {QueryParameterInterface} from '../../models/query-parameter.interface';
+import {tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

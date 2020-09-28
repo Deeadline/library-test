@@ -58,11 +58,13 @@
                 matInput
                 pattern="\d*"
                 placeholder="Release year"
-                formControlName="releaseYear" [errorStateMatcher]="errorStateMatcher">
-              <mat-error *ngIf="formGroup.get('releaseYear')?.hasError('required')">
+                formControlName="releasedYear"
+                [errorStateMatcher]="errorStateMatcher"
+              >
+              <mat-error *ngIf="formGroup.get('releasedYear')?.hasError('required')">
                 Release year is required
               </mat-error>
-              <mat-error *ngIf="formGroup.get('releaseYear')?.hasError('minLength')">
+              <mat-error *ngIf="formGroup.get('releasedYear')?.hasError('minLength')">
                 Release year should be 4 and numeric
               </mat-error>
             </mat-form-field>
@@ -82,7 +84,8 @@
             <mat-form-field>
               <textarea
                 matInput
-                formControl="description"
+                placeholder="Description"
+                formControlName="description"
                 cols="2"
                 rows="2"
                 [errorStateMatcher]="errorStateMatcher">
