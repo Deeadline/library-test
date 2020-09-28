@@ -1,6 +1,6 @@
 export interface QueryParameterInterface {
-  releaseDate?: string[];
-  averageNotes?: number[];
+  releasedYear?: number[];
+  averageNote?: number[];
   author?: string;
   category?: string[];
 }

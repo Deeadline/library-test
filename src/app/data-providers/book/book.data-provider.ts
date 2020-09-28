@@ -27,7 +27,7 @@ export class BookDataProvider {
     let params = new HttpParams();
     if (queryParams) {
       Object.entries(queryParams).forEach(([key, value]) => {
-        if (['category', 'releaseDate', 'averageNotes'].includes(key)) {
+        if (['releasedYear', 'averageNote'].includes(key)) {
           value.forEach(v => {
             params = params.append(key, v);
           });

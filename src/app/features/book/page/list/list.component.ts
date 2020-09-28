@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {BookInterface} from '../../../../models/book.interface';
 import {Subject} from 'rxjs';
 import {QueryParameterInterface} from '../../../../models/query-parameter.interface';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {SelectItem} from 'primeng/api';
 import {BookDataProvider} from '../../../../data-providers/book/book.data-provider';
 import {MatDialog} from '@angular/material/dialog';
-import {debounceTime, distinctUntilChanged, filter, map, switchMap, withLatestFrom} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {ConfirmationModalComponent} from '../../../../shared/confirmation-modal/confirmation-modal.component';
 import {AuthDataProvider} from '../../../../data-providers/auth/auth.data-provider';
 import {UserInterface} from '../../../../models/user.interface';
@@ -20,7 +20,7 @@ export class BookListComponent implements OnInit {
   public books: BookInterface[] = [];
   public queryParams = new Subject<QueryParameterInterface>();
   public qp: QueryParameterInterface = {};
-  public textInput = new FormControl('', [Validators.minLength(3)]);
+  public textInput = new FormControl('');
   public years: SelectItem[] = Array.from(Array(2020 - 1950), (v, i) => (
     {
       value: '' + (1950 + i),
@@ -45,10 +45,7 @@ export class BookListComponent implements OnInit {
   ) {
     this.findAll();
     const values = this.textInput.valueChanges;
-
-
-    const validChange = this.textInput
-      .statusChanges.pipe(filter(s => s === 'VALID'));
+    const validChange = this.textInput.statusChanges;
 
     const validValues = validChange.pipe(
       withLatestFrom(values),
@@ -58,7 +55,12 @@ export class BookListComponent implements OnInit {
     );
 
     validValues.subscribe((value) => {
-      this.qp = {...this.qp, author: value};
+      if (value.length < 3) {
+        delete this.qp.author;
+        this.qp = {...this.qp};
+      } else {
+        this.qp = {...this.qp, author: value};
+      }
       this.queryParams.next(this.qp);
     });
   }
@@ -84,14 +86,14 @@ export class BookListComponent implements OnInit {
 
   public onYearHide(): void {
     if (this.selectedYears) {
-      this.qp = {...this.qp, releaseDate: this.selectedYears.map(sy => sy.value)};
+      this.qp = {...this.qp, releasedYear: this.selectedYears.map(cy => Number(cy.value))};
       this.queryParams.next(this.qp);
     }
   }
 
   public onNoteHide(): void {
     if (this.selectedNotes) {
-      this.qp = {...this.qp, averageNotes: this.selectedNotes.map(sy => sy.value)};
+      this.qp = {...this.qp, averageNote: this.selectedNotes.map(cy => Number(cy.value))};
       this.queryParams.next(this.qp);
     }
   }
