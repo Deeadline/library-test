@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpParams, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {BookInterface} from '../models/book.interface';
+import {UserNoteInterface} from '../models/user-note.interface';
 
 enum RequestMethodEnum {
   LOGIN = 'login',
@@ -92,6 +93,7 @@ export class ResponseInterceptor implements HttpInterceptor {
     const desiredBook = books.find(book => book.id === id);
     const body = request.body as BookInterface;
     const modifiedBook = {...desiredBook, ...body} as BookInterface;
+    modifiedBook.averageNote = this.calculateAverageNote(modifiedBook.notes);
     const modifiedBooks = books.map(book => {
       if (book.id === id) {
         return modifiedBook;
@@ -100,5 +102,9 @@ export class ResponseInterceptor implements HttpInterceptor {
     });
     localStorage.setItem('books', JSON.stringify(modifiedBooks));
     return of(new HttpResponse({status: 200, body: modifiedBook}));
+  }
+
+  private calculateAverageNote(notes: UserNoteInterface[]): number {
+    return notes.reduce((acc, curr) => acc += curr.note, 0) / notes.length;
   }
 }

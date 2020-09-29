@@ -25,6 +25,7 @@ import {PermissionDirective} from './directive/permission.directive';
 import {CalendarModule} from 'primeng/calendar';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {InputTextModule} from 'primeng/inputtext';
+import {RatingModule} from 'primeng/rating';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import {InputTextModule} from 'primeng/inputtext';
     CalendarModule,
     MultiSelectModule,
     InputTextModule,
+    RatingModule
   ],
   exports: [
     CommonModule,
@@ -84,6 +86,7 @@ import {InputTextModule} from 'primeng/inputtext';
     CalendarModule,
     MultiSelectModule,
     InputTextModule,
+    RatingModule
   ]
 })
 export class SharedModule {
