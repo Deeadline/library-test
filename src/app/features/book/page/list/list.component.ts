@@ -129,7 +129,7 @@ export class BookListComponent implements OnInit {
         this.bookDataProvider.update(book.id, book)
           .subscribe(x => {
             const indexOf = this.books.indexOf(book);
-            this.books[indexOf].isLoaned = true;
+            this.books[indexOf].isLoaned = false;
             this.books[indexOf].loanedBy = null;
           });
       }
