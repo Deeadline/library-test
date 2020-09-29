@@ -118,21 +118,23 @@ export class BookListComponent implements OnInit {
   }
 
   public returnBook(book: BookInterface): void {
-    const confirmationDialogRef = this.dialog.open(ConfirmationModalComponent, {
-      width: '400px',
-      data: book
-    });
-    confirmationDialogRef.afterClosed().subscribe(accepted => {
-      if (accepted) {
-        book.isLoaned = false;
-        book.loanedBy = null;
-        this.bookDataProvider.update(book.id, book)
-          .subscribe(x => {
-            const indexOf = this.books.indexOf(book);
-            this.books[indexOf].isLoaned = false;
-            this.books[indexOf].loanedBy = null;
-          });
-      }
-    });
+    const indexOf = this.books.indexOf(book);
+    if (this.user.username === this.books[indexOf].loanedBy.username) {
+      const confirmationDialogRef = this.dialog.open(ConfirmationModalComponent, {
+        width: '400px',
+        data: book
+      });
+      confirmationDialogRef.afterClosed().subscribe(accepted => {
+        if (accepted) {
+          book.isLoaned = false;
+          book.loanedBy = null;
+          this.bookDataProvider.update(book.id, book)
+            .subscribe(x => {
+              this.books[indexOf].isLoaned = false;
+              this.books[indexOf].loanedBy = null;
+            });
+        }
+      });
+    }
   }
 }
