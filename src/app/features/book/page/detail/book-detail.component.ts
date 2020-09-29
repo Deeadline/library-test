@@ -42,7 +42,7 @@ export class BookDetailComponent implements OnInit {
         this.book = book;
         this.currentUser = currentUser;
         this.isLoading = false;
-        this.currentUserRate = this.book.notes?.find(note => note.user.username === this.currentUser.username).note || 0;
+        this.currentUserRate = this.book.notes?.find(note => note.user.username === this.currentUser.username)?.note || 0;
         this.formGroup = this.formBuilder.group({
           createdBy: [this.currentUser],
           comment: [null, [Validators.required, Validators.maxLength(200)]],
