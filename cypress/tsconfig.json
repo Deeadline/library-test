@@ -8,7 +8,8 @@
     "strict": true,
     "target": "es2018",
     "types": [
-      "cypress"
+      "cypress",
+      "jest"
     ],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -17,5 +18,8 @@
   "include": [
     "integration/*.ts",
     "../node_modules/cypress"
+  ],
+  "files": [
+    "../src/setupJest.ts"
   ]
 }

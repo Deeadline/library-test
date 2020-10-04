@@ -117,14 +117,14 @@ describe('LoginComponent', () => {
   });
 
   test('Submit method should display snackBar', () => {
-    spyOn(component.authService, 'login').and.returnValue(throwError({status: 500, error: 'Authentication failed'}));
+    spyOn(component.authService, 'login').and.returnValue(throwError({status: 500, error: 'Login failed'}));
     spyOn(component.snackBar, 'open');
     const user = {username: 'admin@admin.com', password: 'Adm!nistrat0r'} as UserInterface;
     component.loginForm.patchValue(user);
     fixture.detectChanges();
     component.submit();
     expect(component.snackBar.open).toHaveBeenCalledWith(
-      'Authentication failed', null, {
+      'Login failed', null, {
         verticalPosition: 'top', duration: 5000
       });
   });

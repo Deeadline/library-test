@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpParams, HttpRequest, HttpResponse} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable, of, throwError} from 'rxjs';
 import {BookInterface} from '../models/book.interface';
 import {UserNoteInterface} from '../models/user-note.interface';
 
@@ -36,7 +36,11 @@ export class ResponseInterceptor implements HttpInterceptor {
       requestMethod = requestUrl.pop();
     }
     if (requestMethod === RequestMethodEnum.SIGNUP || requestMethod === RequestMethodEnum.LOGIN) {
-      return of(new HttpResponse({status: 200, body: request.body}));
+      const status = (request.body as any).message !== null ? 500 : 200;
+      if (status === 500) {
+        return throwError({message: (request.body as any).message});
+      }
+      return of(new HttpResponse({status, body: request.body}));
     } else if (requestMethod === RequestMethodEnum.BOOKS) {
       const localStorageBooks = JSON.parse(localStorage.getItem('books'));
       const books = (localStorageBooks ? localStorageBooks as BookInterface[] : [mockedBook])

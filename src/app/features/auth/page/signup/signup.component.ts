@@ -56,9 +56,9 @@ export class SignupComponent implements OnInit {
       this.isLoading = true;
       this.authService.signup(this.signupForm.value as UserInterface)
         .subscribe(() => {
-        }, ({error}: HttpErrorResponse) => {
+        }, (error: HttpErrorResponse) => {
           this.isLoading = false;
-          this.snackBar.open(error, null, {verticalPosition: 'top', duration: 5000});
+          this.snackBar.open(error.message, null, {verticalPosition: 'top', duration: 5000});
         }, () => {
           this.router.navigate(['/app/book']);
         });

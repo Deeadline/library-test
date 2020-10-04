@@ -8,13 +8,14 @@
         <div class="col">
           <mat-form-field>
             <input
+              id="email"
               matInput
-              placeholder="username"
+              placeholder="E-mail"
               formControlName="username"
               [errorStateMatcher]="errorStateMatcher"
               required="required"
             >
-            <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+            <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
               Email is <strong>required</strong>
             </mat-error>
           </mat-form-field>
@@ -22,6 +23,7 @@
         <div class="col">
           <mat-form-field>
             <input
+              id="password"
               matInput
               placeholder="password"
               formControlName="password"

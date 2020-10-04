@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         .subscribe(() => {
         }, () => {
           this.isLoading = false;
-          this.snackBar.open('Authentication failed', null, {
+          this.snackBar.open('Login failed', null, {
             verticalPosition: 'top', duration: 5000
           });
         }, () => {
