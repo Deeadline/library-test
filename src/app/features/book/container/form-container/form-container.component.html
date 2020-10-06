@@ -1,105 +1,105 @@
 <article class="container" fxLayout fxLayoutAlign="center center">
-  <form [formGroup]="formGroup" (ngSubmit)="submit()">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Book form</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <section class="row">
-          <div class="col">
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Title"
-                formControlName="title"
-                [errorStateMatcher]="errorStateMatcher">
-              <mat-error *ngIf="formGroup.get('title')?.hasError('required')">
-                Title is required
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </section>
-        <section class="row">
-          <div class="col">
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Author"
-                formControlName="author"
-                [errorStateMatcher]="errorStateMatcher">
-              <mat-error *ngIf="formGroup.get('author')?.hasError('required')">
-                Author is required
-              </mat-error>
-              <mat-error *ngIf="formGroup.get('author')?.hasError('maxLength')">
-                Author field should has max. 20 characters
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Publishing house"
-                formControlName="publishingHouse"
-                [errorStateMatcher]="errorStateMatcher">
-              <mat-error *ngIf="formGroup.get('publishingHouse')?.hasError('required')">
-                Publishing house is required
-              </mat-error>
-              <mat-error *ngIf="formGroup.get('publishingHouse')?.hasError('maxLength')">
-                Publishing house field should has max. 20 characters
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </section>
-        <section class="row">
-          <div class="col">
-            <mat-form-field>
-              <input
-                matInput
-                pattern="\d*"
-                placeholder="Release year"
-                formControlName="releasedYear"
-                [errorStateMatcher]="errorStateMatcher"
-              >
-              <mat-error *ngIf="formGroup.get('releasedYear')?.hasError('required')">
-                Release year is required
-              </mat-error>
-              <mat-error *ngIf="formGroup.get('releasedYear')?.hasError('minLength')">
-                Release year should be 4 and numeric
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-              <input
-                matInput
-                placeholder="Poster"
-                formControlName="imageUrl"
-                [errorStateMatcher]="errorStateMatcher">
-            </mat-form-field>
-          </div>
-        </section>
-        <section class="row">
-          <div class="col">
-            <mat-form-field>
+	<form [formGroup]="formGroup" (ngSubmit)="submit()">
+		<mat-card>
+			<mat-card-header>
+				<mat-card-title>Book form</mat-card-title>
+			</mat-card-header>
+			<mat-card-content>
+				<section class="row">
+					<div class="col">
+						<mat-form-field>
+							<input
+								matInput
+								placeholder="Title"
+								formControlName="title"
+								[errorStateMatcher]="errorStateMatcher">
+							<mat-error *ngIf="formGroup.get('title')?.hasError('required')">
+								Title is required
+							</mat-error>
+						</mat-form-field>
+					</div>
+				</section>
+				<section class="row">
+					<div class="col">
+						<mat-form-field>
+							<input
+								matInput
+								placeholder="Author"
+								formControlName="author"
+								[errorStateMatcher]="errorStateMatcher">
+							<mat-error *ngIf="formGroup.get('author')?.hasError('required')">
+								Author is required
+							</mat-error>
+							<mat-error *ngIf="formGroup.get('author')?.hasError('maxLength')">
+								Author field should has max. 20 characters
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col">
+						<mat-form-field>
+							<input
+								matInput
+								placeholder="Publishing house"
+								formControlName="publishingHouse"
+								[errorStateMatcher]="errorStateMatcher">
+							<mat-error *ngIf="formGroup.get('publishingHouse')?.hasError('required')">
+								Publishing house is required
+							</mat-error>
+							<mat-error *ngIf="formGroup.get('publishingHouse')?.hasError('maxLength')">
+								Publishing house field should has max. 20 characters
+							</mat-error>
+						</mat-form-field>
+					</div>
+				</section>
+				<section class="row">
+					<div class="col">
+						<mat-form-field>
+							<input
+								matInput
+								pattern="\d*"
+								placeholder="Release year"
+								formControlName="releasedYear"
+								[errorStateMatcher]="errorStateMatcher"
+							>
+							<mat-error *ngIf="formGroup.get('releasedYear')?.hasError('required')">
+								Release year is required
+							</mat-error>
+							<mat-error *ngIf="formGroup.get('releasedYear')?.hasError('minLength')">
+								Release year should be 4 and numeric
+							</mat-error>
+						</mat-form-field>
+					</div>
+					<div class="col">
+						<mat-form-field>
+							<input
+								matInput
+								placeholder="Poster"
+								formControlName="imageUrl"
+								[errorStateMatcher]="errorStateMatcher">
+						</mat-form-field>
+					</div>
+				</section>
+				<section class="row">
+					<div class="col">
+						<mat-form-field>
               <textarea
-                matInput
-                placeholder="Description"
-                formControlName="description"
-                cols="2"
-                rows="2"
-                [errorStateMatcher]="errorStateMatcher">
+								matInput
+								placeholder="Description"
+								formControlName="description"
+								cols="2"
+								rows="2"
+								[errorStateMatcher]="errorStateMatcher">
               </textarea>
-              <mat-error *ngIf="formGroup.get('description')?.hasError('maxLength')">
-                Description should have maximum 200 characters
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </section>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit">Submit</button>
-      </mat-card-actions>
-    </mat-card>
-  </form>
+							<mat-error *ngIf="formGroup.get('description')?.hasError('maxLength')">
+								Description should have maximum 200 characters
+							</mat-error>
+						</mat-form-field>
+					</div>
+				</section>
+			</mat-card-content>
+			<mat-card-actions>
+				<button mat-raised-button color="primary" type="submit">Submit</button>
+			</mat-card-actions>
+		</mat-card>
+	</form>
 </article>

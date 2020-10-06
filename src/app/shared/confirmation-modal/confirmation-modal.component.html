@@ -1,13 +1,13 @@
 <h1 mat-dialog-title>
-  <ng-container *ngIf="book.isLoaned else confirmLoan">
-    Do you want to return this book?
-  </ng-container>
+	<ng-container *ngIf="book.isLoaned else confirmLoan">
+		Do you want to return this book?
+	</ng-container>
 </h1>
 <div mat-dialog-actions [align]="'end'">
-  <button mat-raised-button color="warn" id="false-close" [mat-dialog-close]="false">No</button>
-  <button mat-raised-button color="primary" id="true-close" [mat-dialog-close]="true">Yes</button>
+	<button mat-raised-button color="warn" id="false-close" [mat-dialog-close]="false">No</button>
+	<button mat-raised-button color="primary" id="true-close" [mat-dialog-close]="true">Yes</button>
 </div>
 
 <ng-template #confirmLoan>
-  Do you want to loan this book?
+	Do you want to loan this book?
 </ng-template>
