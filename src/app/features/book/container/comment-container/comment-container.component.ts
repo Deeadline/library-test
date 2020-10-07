@@ -9,7 +9,7 @@ import { UserCommentInterface } from '../../../../models/user-comment.interface'
 })
 export class BookCommentContainerComponent implements OnInit {
 
-	@Input() public comment: UserCommentInterface;
+	@Input() public comment!: UserCommentInterface;
 
 	constructor() {
 	}

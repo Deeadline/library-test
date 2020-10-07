@@ -14,7 +14,7 @@ import { BookInterface } from '../../../../models/book.interface';
 export class BookEditComponent implements OnInit {
 	public isLoading = true;
 	public model: BookInterface = {} as BookInterface;
-	public bookId: number = null;
+	public bookId!: number;
 
 	constructor(
 		public dataProvider: BookDataProvider,
@@ -25,7 +25,7 @@ export class BookEditComponent implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.bookId = +(this.route.snapshot.paramMap.get('book_id'));
+		this.bookId = +(this.route.snapshot.paramMap.get('book_id') as string);
 		if (this.bookId) {
 			this.dataProvider.getById(this.bookId)
 				.subscribe((model: BookInterface) => {
@@ -38,19 +38,19 @@ export class BookEditComponent implements OnInit {
 	public onSubmit(book: BookInterface): void {
 		this.isLoading = true;
 		this.dataProvider
-			.update(book.id, book)
+			.update(book.id as number, book)
 			.subscribe(
 				() => {
 				},
 				(e: HttpErrorResponse) => {
 					this.isLoading = false;
-					this.snackBar.open(e.error, null, {
+					this.snackBar.open(e.error, undefined, {
 						verticalPosition: 'top', duration: 5000
 					});
 				},
 				() => {
 					this.isLoading = false;
-					this.snackBar.open('Book has been successfully modified', null, {
+					this.snackBar.open('Book has been successfully modified', undefined, {
 						verticalPosition: 'top', duration: 5000
 					});
 					this.router.navigate(['/app/book']);

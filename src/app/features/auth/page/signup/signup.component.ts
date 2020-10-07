@@ -14,7 +14,7 @@ import { MyErrorStateMatcher } from '../../../../shared/error-state-matcher';
 	styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-	public signupForm: FormGroup;
+	public signupForm!: FormGroup;
 	public isLoading = false;
 
 	constructor(
@@ -47,7 +47,8 @@ export class SignupComponent implements OnInit {
 
 	public validatePasswordMatch(control: FormControl): ValidationErrors | null {
 		if (control.parent) {
-			return (control.value !== control.parent.get('password').value) ? {notMatch: true} : null;
+			// tslint:disable-next-line:no-non-null-assertion
+			return (control.value !== control.parent.get('password')!.value) ? {notMatch: true} : null;
 		}
 		return null;
 	}
@@ -59,7 +60,7 @@ export class SignupComponent implements OnInit {
 				.subscribe(() => {
 				}, (error: HttpErrorResponse) => {
 					this.isLoading = false;
-					this.snackBar.open(error.message, null, {verticalPosition: 'top', duration: 5000});
+					this.snackBar.open(error.message, undefined, {verticalPosition: 'top', duration: 5000});
 				}, () => {
 					this.router.navigate(['/app/book']);
 				});

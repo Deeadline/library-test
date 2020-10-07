@@ -14,7 +14,7 @@ import { MyErrorStateMatcher } from '../../../../shared/error-state-matcher';
 })
 export class LoginComponent implements OnInit {
 
-	public loginForm: FormGroup;
+	public loginForm!: FormGroup;
 	public isLoading = false;
 
 	constructor(
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 				.subscribe(() => {
 				}, () => {
 					this.isLoading = false;
-					this.snackBar.open('Login failed', null, {
+					this.snackBar.open('Login failed', undefined, {
 						verticalPosition: 'top', duration: 5000
 					});
 				}, () => {

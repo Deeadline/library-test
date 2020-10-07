@@ -17,16 +17,16 @@ export class RequestInterceptor implements HttpInterceptor {
 	}
 
 	public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-		const requestMethod = request.url.match(/[^\/]+$/)[0];
+		const requestMethod = (request.url.match(/[^\/]+$/) as RegExpMatchArray)[0];
 		let newRequest = request;
-		let users = [];
-		if (JSON.parse(localStorage.getItem('users'))) {
-			users = JSON.parse(localStorage.getItem('users')) as UserInterface[];
+		let users: UserInterface[] = [];
+		if (JSON.parse(localStorage.getItem('users') as string)) {
+			users = JSON.parse(localStorage.getItem('users') as string) as UserInterface[];
 		}
 		switch (requestMethod) {
 			case RequestMethodEnum.SIGNUP: {
 				const user = request.body as UserInterface;
-				user.role = user.username.includes('admin') ? 'ROLE_ADMINISTRATOR' : null;
+				user.role = user.username.includes('admin') ? 'ROLE_ADMINISTRATOR' : undefined;
 				if (users.map((u: UserInterface) => u.username).includes(user.username)) {
 					newRequest = request.clone({
 						body: {
@@ -50,7 +50,7 @@ export class RequestInterceptor implements HttpInterceptor {
 			}
 			case RequestMethodEnum.LOGIN: {
 				const user = request.body as UserInterface;
-				const foundUser = users.find((u) => u.username === user.username && u.password === user.password);
+				const foundUser = users.find((u: UserInterface) => u.username === user.username && u.password === user.password);
 				if (foundUser) {
 					localStorage.setItem('isAuthenticated', 'true');
 					localStorage.setItem('user', JSON.stringify(request.body));

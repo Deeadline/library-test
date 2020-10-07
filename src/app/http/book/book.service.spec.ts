@@ -40,14 +40,14 @@ describe('BookService', () => {
 	});
 
 	test('getList() should throw if backend returns an error', () => {
-		let error: HttpErrorResponse = null;
+		let error!: HttpErrorResponse;
 		service.getList().subscribe(() => {
 		}, (err: HttpErrorResponse) => error = err);
 
 		const request = httpMock.expectOne(`${service.API_URL}books`, 'expected to make a request');
 		expect(request.request.method).toEqual('GET');
 		request.flush('ERROR', {status: 500, statusText: 'Internal server error'});
-		expect(error.status).toEqual(500);
+		expect(error?.status).toEqual(500);
 		httpMock.verify();
 	});
 
@@ -62,14 +62,14 @@ describe('BookService', () => {
 	});
 
 	test('getById() should throw if backend returns an error', () => {
-		let error: HttpErrorResponse = null;
+		let error!: HttpErrorResponse;
 		service.getById(1).subscribe(() => {
 		}, (err: HttpErrorResponse) => error = err);
 
 		const request = httpMock.expectOne(`${service.API_URL}books/1`, 'expected to make a request');
 		expect(request.request.method).toEqual('GET');
 		request.flush('ERROR', {status: 500, statusText: 'Internal server error'});
-		expect(error.status).toEqual(500);
+		expect(error?.status).toEqual(500);
 		httpMock.verify();
 	});
 
@@ -87,14 +87,14 @@ describe('BookService', () => {
 
 	test('getListByQuery() should throw if backend returns error', () => {
 		const query = new HttpParams().set('title', 'Harry Potter');
-		let error: HttpErrorResponse = null;
+		let error!: HttpErrorResponse;
 		service.getListByQuery(query).subscribe(() => {
 		}, (err: HttpErrorResponse) => error = err);
 
 		const request = httpMock.expectOne(`${service.API_URL}books?${query}`, 'expected to make a request');
 		expect(request.request.method).toEqual('GET');
 		request.flush('ERROR', {status: 500, statusText: 'Internal server error'});
-		expect(error.status).toEqual(500);
+		expect(error?.status).toEqual(500);
 		httpMock.verify();
 	});
 
@@ -111,14 +111,14 @@ describe('BookService', () => {
 	});
 
 	test('create() should throw if backend returns error', () => {
-		let error: HttpErrorResponse = null;
+		let error!: HttpErrorResponse;
 		service.create(mockedBooksCollection[0]).subscribe(() => {
 		}, (err: HttpErrorResponse) => error = err);
 
 		const request = httpMock.expectOne(`${service.API_URL}books`, 'expected to make a request');
 		expect(request.request.method).toEqual('POST');
 		request.flush('ERROR', {status: 500, statusText: 'Internal server error'});
-		expect(error.status).toEqual(500);
+		expect(error?.status).toEqual(500);
 		httpMock.verify();
 	});
 
@@ -142,7 +142,7 @@ describe('BookService', () => {
 	});
 
 	test('update() should receive 500 when backend returns error', () => {
-		let error: HttpErrorResponse = null;
+		let error!: HttpErrorResponse;
 		const oldBook: BookInterface = mockedBooksCollection[0];
 		const description = 'The boy who lived started new year in Hogwart school. New experiences are waiting for him.';
 		service.update(1, {
@@ -156,7 +156,7 @@ describe('BookService', () => {
 		const request = httpMock.expectOne(`${service.API_URL}books/1`, 'expected to make a request');
 		expect(request.request.method).toEqual('PUT');
 		request.flush('ERROR', {status: 500, statusText: 'Book not found'});
-		expect(error.status).toBe(500);
+		expect(error?.status).toBe(500);
 		httpMock.verify();
 	});
 

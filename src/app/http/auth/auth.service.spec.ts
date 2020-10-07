@@ -46,7 +46,7 @@ describe('AuthService', () => {
 	});
 
 	test('Login() should return provided user', () => {
-		let result: AuthRequestInterface = null;
+		let result!: AuthRequestInterface;
 		const loginRequest = {username: 'admin@test.com', password: 'admin2020'} as UserInterface;
 		service.login(loginRequest).subscribe((response: AuthRequestInterface) => {
 			result = response;
@@ -56,11 +56,11 @@ describe('AuthService', () => {
 			user: loginRequest
 		});
 		httpTestingController.verify();
-		expect(result.user).toEqual(loginRequest);
+		expect(result?.user).toEqual(loginRequest);
 	});
 
 	test('Login() should contain message', () => {
-		let result: AuthRequestInterface = null;
+		let result!: AuthRequestInterface;
 		const expectedMessage = 'login failed';
 		const loginRequest = {username: 'admin@test.com', password: 'admin2020'} as UserInterface;
 		service.login(loginRequest).subscribe((response: AuthRequestInterface) => {
@@ -71,11 +71,11 @@ describe('AuthService', () => {
 			message: expectedMessage
 		});
 		httpTestingController.verify();
-		expect(result.message).toEqual(expectedMessage);
+		expect(result?.message).toEqual(expectedMessage);
 	});
 
 	test('Signup() should return new user', () => {
-		let result: AuthRequestInterface = null;
+		let result!: AuthRequestInterface;
 		const signupRequest = {username: 'admin', password: 'test2020'} as UserInterface;
 		service.signup(signupRequest).subscribe((response: AuthRequestInterface) => {
 			result = response;
@@ -88,11 +88,11 @@ describe('AuthService', () => {
 			}
 		});
 		httpTestingController.verify();
-		expect(result.user.id).toBeDefined();
+		expect(result?.user.id).toBeDefined();
 	});
 
 	test('Signup() should return error message', () => {
-		let result: AuthRequestInterface = null;
+		let result!: AuthRequestInterface;
 		const expectedMessage = 'signup failed';
 		const signupRequest = {username: 'admin', password: 'test2020'} as UserInterface;
 		service.signup(signupRequest).subscribe((response: AuthRequestInterface) => {
@@ -103,7 +103,7 @@ describe('AuthService', () => {
 			message: expectedMessage
 		});
 		httpTestingController.verify();
-		expect(result.message).toEqual(expectedMessage);
+		expect(result?.message).toEqual(expectedMessage);
 	});
 
 	test('Logout() should remove isAuthenticated from localStorage when user is logged', () => {

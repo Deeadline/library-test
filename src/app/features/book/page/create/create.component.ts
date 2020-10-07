@@ -34,13 +34,13 @@ export class BookCreateComponent implements OnInit {
 				},
 				(e: HttpErrorResponse) => {
 					this.isLoading = false;
-					this.snackBar.open(e.error, null, {
+					this.snackBar.open(e.error, undefined, {
 						verticalPosition: 'top', duration: 5000
 					});
 				},
 				() => {
 					this.isLoading = false;
-					this.snackBar.open('Book has been successfully added', null, {
+					this.snackBar.open('Book has been successfully added', undefined, {
 						verticalPosition: 'top', duration: 5000
 					});
 					this.router.navigate(['/app/book']);

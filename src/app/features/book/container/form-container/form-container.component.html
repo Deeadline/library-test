@@ -12,6 +12,7 @@
 								matInput
 								placeholder="Title"
 								formControlName="title"
+								data-cy-id="title"
 								[errorStateMatcher]="errorStateMatcher">
 							<mat-error *ngIf="formGroup.get('title')?.hasError('required')">
 								Title is required
@@ -26,6 +27,7 @@
 								matInput
 								placeholder="Author"
 								formControlName="author"
+								data-cy-id="author"
 								[errorStateMatcher]="errorStateMatcher">
 							<mat-error *ngIf="formGroup.get('author')?.hasError('required')">
 								Author is required
@@ -41,6 +43,7 @@
 								matInput
 								placeholder="Publishing house"
 								formControlName="publishingHouse"
+								data-cy-id="publishingHouse"
 								[errorStateMatcher]="errorStateMatcher">
 							<mat-error *ngIf="formGroup.get('publishingHouse')?.hasError('required')">
 								Publishing house is required
@@ -59,6 +62,7 @@
 								pattern="\d*"
 								placeholder="Release year"
 								formControlName="releasedYear"
+								data-cy-id="releasedYear"
 								[errorStateMatcher]="errorStateMatcher"
 							>
 							<mat-error *ngIf="formGroup.get('releasedYear')?.hasError('required')">
@@ -75,6 +79,7 @@
 								matInput
 								placeholder="Poster"
 								formControlName="imageUrl"
+								data-cy-id="imageUrl"
 								[errorStateMatcher]="errorStateMatcher">
 						</mat-form-field>
 					</div>
@@ -88,6 +93,7 @@
 								formControlName="description"
 								cols="2"
 								rows="2"
+								data-cy-id="description"
 								[errorStateMatcher]="errorStateMatcher">
               </textarea>
 							<mat-error *ngIf="formGroup.get('description')?.hasError('maxLength')">
@@ -98,7 +104,7 @@
 				</section>
 			</mat-card-content>
 			<mat-card-actions>
-				<button mat-raised-button color="primary" type="submit">Submit</button>
+				<button mat-raised-button color="primary" type="submit" data-cy="submit">Submit</button>
 			</mat-card-actions>
 		</mat-card>
 	</form>

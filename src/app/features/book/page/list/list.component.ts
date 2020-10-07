@@ -28,7 +28,7 @@ export class BookListComponent implements OnInit {
 			label: `${1950 + i}`
 		}
 	));
-	public selectedYears: SelectItem[];
+	public selectedYears!: SelectItem[];
 
 	public notes: SelectItem[] = Array.from(Array(10), (v: unknown, i: number) => (
 		{
@@ -37,8 +37,8 @@ export class BookListComponent implements OnInit {
 		}
 	));
 
-	public selectedNotes: SelectItem[];
-	private user: UserInterface;
+	public selectedNotes!: SelectItem[];
+	private user!: UserInterface;
 
 	constructor(
 		private readonly authDataProvider: AuthDataProvider,
@@ -97,7 +97,7 @@ export class BookListComponent implements OnInit {
 			if (accepted) {
 				book.isLoaned = true;
 				book.loanedBy = this.user;
-				this.bookDataProvider.update(book.id, book)
+				this.bookDataProvider.update(book.id as number, book)
 					.subscribe((x: BookInterface): void => {
 						const indexOf = this.books.indexOf(book);
 						this.books[indexOf].isLoaned = true;
@@ -109,7 +109,7 @@ export class BookListComponent implements OnInit {
 
 	public returnBook(book: BookInterface): void {
 		const indexOf = this.books.indexOf(book);
-		if (this.user.username === this.books[indexOf].loanedBy.username) {
+		if (this.user.username === this.books[indexOf].loanedBy?.username) {
 			const confirmationDialogRef = this.dialog.open(ConfirmationModalComponent, {
 				width: '400px',
 				data: book
@@ -120,10 +120,10 @@ export class BookListComponent implements OnInit {
 					if (accepted) {
 						book.isLoaned = false;
 						book.loanedBy = undefined;
-						this.bookDataProvider.update(book.id, book)
+						this.bookDataProvider.update(book.id as number, book)
 							.subscribe(() => {
 								this.books[indexOf].isLoaned = false;
-								this.books[indexOf].loanedBy = null;
+								this.books[indexOf].loanedBy = undefined;
 							});
 					}
 				});

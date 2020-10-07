@@ -37,7 +37,7 @@ describe('Book.DataProviderService', () => {
 	test('create() should add book and return with new id', () => {
 		spyOn(provider, 'create').and.returnValue(of({...mockedBooksCollection[0], id: 1}));
 		provider.create(mockedBooksCollection[0]).subscribe(
-			(response) => expect(response).toEqual(({...mockedBooksCollection[0], id: 1}))
+			(response: BookInterface) => expect(response).toEqual(({...mockedBooksCollection[0], id: 1}))
 		);
 	});
 
@@ -56,7 +56,7 @@ describe('Book.DataProviderService', () => {
 	test('create() should return 500 if backend return error', () => {
 		spyOn(provider, 'create').and.returnValue(of(expectedError));
 		provider.create(mockedBooksCollection[0]).subscribe(
-			(response) => expect(response).toEqual(expectedError)
+			(response: BookInterface) => expect(response).toEqual(expectedError)
 		);
 	});
 
@@ -65,7 +65,7 @@ describe('Book.DataProviderService', () => {
 		spyOn(provider, 'update').and.returnValue(of({...mockedBooksCollection[0], description}));
 		provider.update(1, mockedBooksCollection[0])
 			.subscribe(
-				(response) => expect(response).toEqual({...mockedBooksCollection[0], description})
+				(response: BookInterface) => expect(response).toEqual({...mockedBooksCollection[0], description})
 			);
 	});
 
@@ -86,13 +86,13 @@ describe('Book.DataProviderService', () => {
 	test('update() should return 500 if backend return error', () => {
 		spyOn(provider, 'update').and.returnValue(of(expectedError));
 		provider.update(1, mockedBooksCollection[0]).subscribe(
-			(response) => expect(response).toEqual(expectedError)
+			(response: BookInterface) => expect(response).toEqual(expectedError)
 		);
 	});
 
 	test('getById() should return desired book', () => {
 		spyOn(provider, 'getById').and.returnValue(of(mockedBooksCollection[0]));
-		provider.getById(1).subscribe((response) => {
+		provider.getById(1).subscribe((response: BookInterface) => {
 			expect(response).toEqual(mockedBooksCollection[0]);
 		});
 	});
@@ -111,7 +111,7 @@ describe('Book.DataProviderService', () => {
 
 	test('getById() should return 500 if backend returns an error', () => {
 		spyOn(provider, 'getById').and.returnValue(of(expectedError));
-		provider.getById(1).subscribe((response) => {
+		provider.getById(1).subscribe((response: BookInterface) => {
 			expect(response).toEqual(expectedError);
 		});
 	});
@@ -119,7 +119,7 @@ describe('Book.DataProviderService', () => {
 	test('getAll() should return all items', () => {
 		let result: BookInterface[] = [];
 		spyOn(provider, 'getAll').and.returnValue(of(mockedBooksCollection));
-		provider.getAll().subscribe((response) => {
+		provider.getAll().subscribe((response: BookInterface[]) => {
 			result = response;
 		});
 		expect(result).toEqual(mockedBooksCollection);
@@ -127,9 +127,9 @@ describe('Book.DataProviderService', () => {
 
 	test('getAll() should return filtered items', () => {
 		let result: BookInterface[] = [];
-		const filteredItems = mockedBooksCollection.filter((y) => y.author === 'J.K. Rowling');
+		const filteredItems = mockedBooksCollection.filter((y: BookInterface) => y.author === 'J.K. Rowling');
 		spyOn(provider, 'getAll').and.returnValue(of(filteredItems));
-		provider.getAll({author: 'J.K. Rowling'}).subscribe((response) => result = response);
+		provider.getAll({author: 'J.K. Rowling'}).subscribe((response: BookInterface[]) => result = response);
 		expect(result).toEqual(filteredItems);
 	});
 

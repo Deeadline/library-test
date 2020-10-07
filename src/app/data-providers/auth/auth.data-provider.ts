@@ -11,13 +11,13 @@ import { UserInterface } from '../../models/user.interface';
 })
 export class AuthDataProvider {
 	public user$: Observable<UserInterface>;
-	private readonly userSource = new BehaviorSubject<UserInterface>(null);
+	private readonly userSource = new BehaviorSubject<UserInterface>({} as UserInterface);
 
 	constructor(
 		private readonly authService: AuthService
 	) {
 		this.user$ = this.userSource.asObservable().pipe(
-			startWith(JSON.parse(localStorage.getItem('user')) as UserInterface)
+			startWith(JSON.parse(localStorage.getItem('user') as string) as UserInterface)
 		);
 	}
 
@@ -41,13 +41,13 @@ export class AuthDataProvider {
 
 	public logout(): void {
 		this.authService.logout();
-		this.userSource.next(null);
+		this.userSource.next({} as UserInterface);
 	}
 
 	public getRole(): Observable<string> {
 		return this.user$.pipe(
 			filter((user: UserInterface) => !!user),
-			map((user: UserInterface) => user.role)
+			map(({role}: UserInterface) => role as string)
 		);
 	}
 

@@ -14,7 +14,6 @@ enum RequestMethodEnum {
 
 const mockedBook = {
 	id: 1,
-	description: null,
 	imageUrl: 'https://picsum.photos/250',
 	author: 'J.K. Rowling',
 	title: 'Harry Potter and the Philosopher Stone',
@@ -29,6 +28,7 @@ export class ResponseInterceptor implements HttpInterceptor {
 	constructor() {
 	}
 
+	// @ts-ignore
 	public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 		const requestUrl = request.url.split('/');
 		const id = +(requestUrl[requestUrl.length - 1]);
@@ -37,15 +37,17 @@ export class ResponseInterceptor implements HttpInterceptor {
 			requestMethod = requestUrl.pop();
 		}
 		if (requestMethod === RequestMethodEnum.SIGNUP || requestMethod === RequestMethodEnum.LOGIN) {
-			const status = request.body['message'] !== null ? 500 : 200;
+			// @ts-ignore
+			const status = request.body['message'] ? 500 : 200;
 			if (status === 500) {
+				// @ts-ignore
 				return throwError({message: request.body['message']});
 			}
 			return of(new HttpResponse({status, body: request.body}));
 		} else if (requestMethod === RequestMethodEnum.BOOKS) {
-			const localStorageBooks = JSON.parse(localStorage.getItem('books'));
-			const books = (localStorageBooks ? localStorageBooks as BookInterface[] : [mockedBook])
-				.sort((a: BookInterface, b: BookInterface) => b.id - a.id);
+			const localStorageBooks = JSON.parse(localStorage.getItem('books') as string);
+			const books = (localStorageBooks ? localStorageBooks as BookInterface[] : [])
+				.sort((a: BookInterface, b: BookInterface) => (b.id as number) - (a.id as number));
 			switch (request.method) {
 				case 'GET':
 					return this.handleGET(request.params, id, books);
@@ -63,7 +65,7 @@ export class ResponseInterceptor implements HttpInterceptor {
 		if (params.keys().length) {
 			const filters = Object.entries(params)
 				.filter(([key, _]: [string, Map<string, string[]>]) => key === 'map')
-				.map(([_, value]: [string, Map<string, string[]>]) => value).pop();
+				.map(([_, value]: [string, Map<string, string[]>]) => value).pop() as Map<string, string[]>;
 			const filteredBooks = books.filter((book: BookInterface) => {
 				for (const [key, values] of filters) {
 					if (key === 'author') {
@@ -71,6 +73,7 @@ export class ResponseInterceptor implements HttpInterceptor {
 							return book;
 						}
 					} else {
+						// @ts-ignore
 						if (values.includes(book[key])) {
 							return book;
 						}
@@ -86,7 +89,7 @@ export class ResponseInterceptor implements HttpInterceptor {
 	}
 
 	private handlePOST(request: HttpRequest<unknown>, books: BookInterface[]): Observable<HttpResponse<unknown>> {
-		const lastId = books.map((book: BookInterface) => book.id).pop();
+		const lastId = books.map((book: BookInterface) => book.id).pop() as number;
 		const body = request.body as BookInterface;
 		const newBook = {...body, id: lastId + 1} as BookInterface;
 		const newBooks = [...books, newBook];
@@ -98,7 +101,7 @@ export class ResponseInterceptor implements HttpInterceptor {
 		const desiredBook = books.find((book: BookInterface) => book.id === id);
 		const body = request.body as BookInterface;
 		const modifiedBook = {...desiredBook, ...body} as BookInterface;
-		modifiedBook.averageNote = this.calculateAverageNote(modifiedBook.notes);
+		modifiedBook.averageNote = this.calculateAverageNote(modifiedBook.notes as UserNoteInterface[]);
 		const modifiedBooks = books.map((book: BookInterface) => {
 			if (book.id === id) {
 				return modifiedBook;
@@ -110,6 +113,6 @@ export class ResponseInterceptor implements HttpInterceptor {
 	}
 
 	private calculateAverageNote(notes: UserNoteInterface[]): number {
-		return notes.reduce((acc: 0, curr: UserNoteInterface) => acc + curr.note, 0) / notes.length;
+		return notes.reduce((acc: number, curr: UserNoteInterface) => acc + curr.note, 0) / notes.length;
 	}
 }

@@ -17,11 +17,11 @@ import { MyErrorStateMatcher } from '../../../../shared/error-state-matcher';
 	styleUrls: ['./book-detail.component.scss']
 })
 export class BookDetailComponent implements OnInit {
-	public book: BookInterface;
+	public book!: BookInterface;
 	public isLoading = true;
-	public currentUser: UserInterface;
-	public formGroup: FormGroup;
-	public bookId: number = null;
+	public currentUser!: UserInterface;
+	public formGroup!: FormGroup;
+	public bookId!: number;
 	public currentUserRate = 1;
 
 	constructor(
@@ -47,7 +47,7 @@ export class BookDetailComponent implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.bookId = +(this.route.snapshot.paramMap.get('book_id'));
+		this.bookId = +(this.route.snapshot.paramMap.get('book_id') as string);
 		if (this.bookId) {
 			combineLatest([
 				this.bookDataProvider.getById(this.bookId),
@@ -71,7 +71,7 @@ export class BookDetailComponent implements OnInit {
 			this.isLoading = true;
 			const comments = [...this.comments, this.formGroup.value as UserCommentInterface];
 			const book = {...this.book, comments} as BookInterface;
-			this.bookDataProvider.update(this.book.id, book)
+			this.bookDataProvider.update(this.book.id as number, book)
 				.subscribe((x: BookInterface) => {
 					this.book.comments = x.comments;
 					this.isLoading = false;

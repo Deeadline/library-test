@@ -13,9 +13,9 @@ export class BookFormContainerComponent implements OnInit {
 
 	@Output() public submitEvent = new EventEmitter<BookInterface>();
 
-	public formGroup: FormGroup;
+	public formGroup!: FormGroup;
 
-	private _model: BookInterface = null;
+	private _model: BookInterface | null = null;
 
 	constructor(
 		private readonly formBuilder: FormBuilder,
@@ -29,7 +29,7 @@ export class BookFormContainerComponent implements OnInit {
 	}
 
 	public get model(): BookInterface {
-		return this._model;
+		return this._model as BookInterface;
 	}
 
 	public ngOnInit(): void {
