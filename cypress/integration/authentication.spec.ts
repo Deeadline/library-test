@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 /// <reference types="../support"/>
 
-describe('Authentication page', () => {
+describe('Authentication module', () => {
 	beforeEach(() => {
 		cy.visit('/auth/login');
 	});
@@ -22,7 +22,6 @@ describe('Authentication page', () => {
 		cy.url().should('include', '/auth/signup');
 	});
 
-	///
 	it('Should register user', () => {
 		cy.get('button[type="button"]').click();
 		cy.url().should('include', '/auth/signup');

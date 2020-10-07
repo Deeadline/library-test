@@ -1,6 +1,34 @@
-[  {
-    "name": "Using fixtures to represent data",
-    "email": "hello@cypress.io",
-    "body": "Fixtures are a great way to mock data for responses to routes"
-  }
-]
+{
+	"admin-login": {
+		"email": "admin@test.com",
+		"password": "Adm!nistrat0r"
+	},
+	"user-login": {
+		"username": "user@test.com",
+		"password": "Testuser!23"
+	},
+	"fetch-users": [
+		{
+			"username": "admin@test.com",
+			"password": "Adm!nistrat0r",
+			"role": "ROLE_ADMINISTRATOR",
+			"favouriteAuthor": "J.K. Rowling",
+			"favouriteBook": "Harry Potter and The Philosopher Stone",
+			"id": 1
+		},
+		{
+			"username": "user@test.com",
+			"password": "Testuser!23",
+			"favouriteAuthor": "J.K. Rowling",
+			"favouriteBook": "Harry Potter and The Philosopher Stone",
+			"id": 2
+		}
+	],
+	"example-book": {
+		"imageUrl": "https://picsum.photos/250",
+		"author": "J.K. Rowling",
+		"title": "Harry Potter and the Philosopher Stone",
+		"publishingHouse": "Media Rodzina",
+		"releasedYear": 2000
+	}
+}

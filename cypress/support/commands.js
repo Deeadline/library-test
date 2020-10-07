@@ -25,16 +25,25 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('login', (loginModel) => {
-  cy.get('#email').type(loginModel.email);
-  cy.get('#password').type(loginModel.password);
-  cy.get('button[type="submit"]').click();
+	cy.get('#email').type(loginModel.email);
+	cy.get('#password').type(loginModel.password);
+	cy.get('button[type="submit"]').click();
 });
 
 Cypress.Commands.add('signup', (user) => {
-  cy.get('#username').type(user.username);
-  cy.get('#password').type(user.password);
-  cy.get('#repeatPassword').type(user.repeatPassword);
-  cy.get('#favouriteAuthor').type(user.favouriteAuthor);
-  cy.get('#favouriteBook').type(user.favouriteBook);
-  cy.get('button[type="submit"]').click();
+	cy.get('#username').type(user.username);
+	cy.get('#password').type(user.password);
+	cy.get('#repeatPassword').type(user.repeatPassword);
+	cy.get('#favouriteAuthor').type(user.favouriteAuthor);
+	cy.get('#favouriteBook').type(user.favouriteBook);
+	cy.get('button[type="submit"]').click();
 });
+
+Cypress.Commands.add('insertBook', (book) => {
+	cy.get('[data-cy-id="title"]').type(book.title);
+	cy.get('[data-cy-id="author"]').type(book.author);
+	cy.get('[data-cy-id="publishingHouse"]').type(book.publishingHouse);
+	cy.get('[data-cy-id="releasedYear"]').type(book.releasedYear);
+	cy.get('[data-cy-id="imageUrl"]').type(book.imageUrl);
+	cy.get('[data-cy="submit"]').click();
+})
