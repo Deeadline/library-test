@@ -90,8 +90,9 @@ export class ResponseInterceptor implements HttpInterceptor {
 
 	private handlePOST(request: HttpRequest<unknown>, books: BookInterface[]): Observable<HttpResponse<unknown>> {
 		const lastId = books.map((book: BookInterface) => book.id).pop() as number;
+		const properId = lastId === undefined ? 0 : lastId;
 		const body = request.body as BookInterface;
-		const newBook = {...body, id: lastId + 1} as BookInterface;
+		const newBook = {...body, id: properId + 1} as BookInterface;
 		const newBooks = [...books, newBook];
 		localStorage.setItem('books', JSON.stringify(newBooks));
 		return of(new HttpResponse({status: 200, body: newBooks}));
@@ -113,6 +114,9 @@ export class ResponseInterceptor implements HttpInterceptor {
 	}
 
 	private calculateAverageNote(notes: UserNoteInterface[]): number {
-		return notes.reduce((acc: number, curr: UserNoteInterface) => acc + curr.note, 0) / notes.length;
+		if (notes) {
+			return notes.reduce((acc: number, curr: UserNoteInterface) => acc + curr.note, 0) / notes.length;
+		}
+		return 0;
 	}
 }

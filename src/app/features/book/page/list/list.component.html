@@ -33,7 +33,7 @@
 			</section>
 		</mat-toolbar>
 		<mat-card-content fxLayout fxLayoutAlign="flex-start center">
-			<mat-card *ngFor="let book of books" style="margin: .5rem; width: 20rem;">
+			<mat-card *ngFor="let book of books" style="margin: .5rem; width: 20rem;" data-cy="book">
 				<mat-card-header>
 					<mat-card-title>{{book.title}} ({{book.releasedYear}})</mat-card-title>
 					<mat-card-subtitle>Average notes: {{book?.averageNote}}</mat-card-subtitle>
@@ -53,7 +53,9 @@
 					<a
 						mat-icon-button
 						type="button"
-						[routerLink]="['/app','book','detail',book.id]">
+						[routerLink]="['/app','book','detail',book.id]"
+						data-cy-id="detail-{{book.id}}"
+					>
 						<mat-icon>more_horiz</mat-icon>
 					</a>
 					<a
@@ -61,7 +63,9 @@
 						mat-icon-button
 						color="primary"
 						type="button"
-						[routerLink]="['/app','book','edit',book.id]">
+						[routerLink]="['/app','book','edit',book.id]"
+						data-cy-id="edit-{{book.id}}"
+					>
 						<mat-icon>edit</mat-icon>
 					</a>
 				</mat-card-actions>
