@@ -131,7 +131,8 @@ describe('Book module', () => {
 		});
 
 		it('should have 2 elements when search by year range', () => {
-			cy.wait(500).get('[data-cy="years"]').click().get('.p-multiselect-item[aria-label="2001"]').click();
+			cy.get('[data-cy="years"]').click().get('.p-multiselect-item[aria-label="2001"]').click();
+			cy.wait(600).get('[data-cy="list-toolbar"]').click();
 		});
 	});
 });
