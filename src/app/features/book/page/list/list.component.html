@@ -6,20 +6,21 @@
 				mat-icon-button
 				color="warn"
 				[routerLink]="['/app','book','create']"
-			data-cy="create-book">
+				data-cy="create-book">
 				<mat-icon>add_circle</mat-icon>
 			</a>
 			<section fxFlex="50%" fxLayout fxLayoutAlign="space-between center">
         <span class="p-float-label">
-        <input pInputText id="float-input" size="30" [formControl]="textInput"/>
+        	<input pInputText id="float-input" size="30" [formControl]="textInput" data-cy-id="author-input"/>
           <label for="float-input">Type author</label>
-          </span>
+				</span>
 				<p-multiSelect
 					[options]="years"
 					[(ngModel)]="selectedYears"
 					(onPanelHide)="onYearHide()"
 					[showHeader]="false"
 					optionLabel="value"
+					data-cy="years"
 				>
 				</p-multiSelect>
 				<p-multiSelect
@@ -28,13 +29,14 @@
 					(onPanelHide)="onNoteHide()"
 					[showHeader]="false"
 					optionLabel="value"
+					data-cy="notes"
 				>
 				</p-multiSelect>
 			</section>
 		</mat-toolbar>
-		<mat-card-content fxLayout fxLayoutAlign="flex-start center">
+		<mat-card-content fxLayout="row wrap" fxLayoutAlign="flex-start center">
 			<mat-card *ngFor="let book of books" style="margin: .5rem; width: 20rem;" data-cy="book">
-				<mat-card-header>
+				<mat-card-header data-cy="{{book.id}}">
 					<mat-card-title>{{book.title}} ({{book.releasedYear}})</mat-card-title>
 					<mat-card-subtitle>Average notes: {{book?.averageNote}}</mat-card-subtitle>
 				</mat-card-header>

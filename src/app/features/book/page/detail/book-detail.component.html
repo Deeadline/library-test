@@ -9,6 +9,7 @@
 					*ngIf="!isUserRated"
 					type="button"
 					(click)="addRate()"
+					data-cy="submit-rate"
 					class="btn btn-sm btn-outline-primary ml-2">Rate
 				</button>
 			</div>
@@ -25,6 +26,7 @@
 								matInput
 								placeholder="Comment"
 								formControlName="comment"
+								data-cy-id="comment"
 								[errorStateMatcher]="errorStateMatcher"
 								[style]="{'min-height': '10vh', 'max-height': '10vh'}"
 							></textarea>
@@ -35,7 +37,7 @@
 									Maximum {{error.requiredLength}} characters
 								</mat-error>
 							</mat-form-field>
-							<button type="submit" class="btn btn-outline-success ml-2">
+							<button type="submit" class="btn btn-outline-success ml-2" data-cy="submit-comment">
 								Add comment
 							</button>
 						</form>

@@ -4,7 +4,7 @@
 		"password": "Adm!nistrat0r"
 	},
 	"user-login": {
-		"username": "user@test.com",
+		"email": "user@test.com",
 		"password": "Testuser!23"
 	},
 	"fetch-users": [
@@ -30,5 +30,148 @@
 		"title": "Harry Potter and the Philosopher Stone",
 		"publishingHouse": "Media Rodzina",
 		"releasedYear": 2000
-	}
+	},
+	"example-list-of-book": [
+		{
+			"id": 1,
+			"imageUrl": "https://picsum.photos/250",
+			"author": "J.K. Rowling",
+			"title": "Harry Potter and the Chamber of Secrets",
+			"publishingHouse": "Media Rodzina",
+			"releasedYear": 2000,
+			"averageNote": 0
+		},
+		{
+			"id": 2,
+			"imageUrl": "https://picsum.photos/250",
+			"author": "J.K. Rowling",
+			"title": "Harry Potter and the Philosopher Stone",
+			"publishingHouse": "Media Rodzina",
+			"releasedYear": 2000,
+			"averageNote": 1,
+			"notes": [
+				{
+					"note": 1,
+					"user": {
+						"username": "admin@test.com",
+						"password": "Adm!nistrat0r",
+						"role": "ROLE_ADMINISTRATOR",
+						"favouriteAuthor": "J.K. Rowling",
+						"favouriteBook": "Harry Potter and The Philosopher Stone",
+						"id": 1
+					}
+				}
+			]
+		},
+		{
+			"id": 3,
+			"imageUrl": "https://picsum.photos/250",
+			"author": "J.K. Rowling",
+			"title": "Harry Potter and the Prisoner of Azkaban",
+			"publishingHouse": "Media Rodzina",
+			"releasedYear": 2001,
+			"averageNote": 1,
+			"notes": [
+				{
+					"note": 1,
+					"user": {
+						"username": "admin@test.com",
+						"password": "Adm!nistrat0r",
+						"role": "ROLE_ADMINISTRATOR",
+						"favouriteAuthor": "J.K. Rowling",
+						"favouriteBook": "Harry Potter and The Philosopher Stone",
+						"id": 1
+					}
+				}
+			]
+		},
+		{
+			"id": 4,
+			"imageUrl": "https://picsum.photos/250",
+			"author": "J.K. Rowling",
+			"title": "Harry Potter and the Order of the Phoenix",
+			"publishingHouse": "Media Rodzina",
+			"releasedYear": 2004,
+			"averageNote": 1,
+			"notes": [
+				{
+					"note": 1,
+					"user": {
+						"username": "admin@test.com",
+						"password": "Adm!nistrat0r",
+						"role": "ROLE_ADMINISTRATOR",
+						"favouriteAuthor": "J.K. Rowling",
+						"favouriteBook": "Harry Potter and The Philosopher Stone",
+						"id": 1
+					}
+				}
+			]
+		},
+		{
+			"id": 5,
+			"imageUrl": "https://picsum.photos/250",
+			"author": "Rick Riordan",
+			"title": "Percy Jackson and The Lightning Thief",
+			"publishingHouse": "Galeria Książki",
+			"releasedYear": 2009,
+			"averageNote": 1,
+			"notes": [
+				{
+					"note": 1,
+					"user": {
+						"username": "admin@test.com",
+						"password": "Adm!nistrat0r",
+						"role": "ROLE_ADMINISTRATOR",
+						"favouriteAuthor": "J.K. Rowling",
+						"favouriteBook": "Harry Potter and The Philosopher Stone",
+						"id": 1
+					}
+				}
+			]
+		},
+		{
+			"id": 6,
+			"imageUrl": "https://picsum.photos/250",
+			"author": "Rick Riordan",
+			"title": "Percy Jackson and The Titan's Curse",
+			"publishingHouse": "Galeria Książki",
+			"releasedYear": 2010,
+			"averageNote": 1,
+			"notes": [
+				{
+					"note": 1,
+					"user": {
+						"username": "admin@test.com",
+						"password": "Adm!nistrat0r",
+						"role": "ROLE_ADMINISTRATOR",
+						"favouriteAuthor": "J.K. Rowling",
+						"favouriteBook": "Harry Potter and The Philosopher Stone",
+						"id": 1
+					}
+				}
+			]
+		},
+		{
+			"id": 7,
+			"imageUrl": "https://picsum.photos/250",
+			"author": "Rick Riordan",
+			"title": "Percy Jackson and The Lost Hero",
+			"publishingHouse": "Galeria Książki",
+			"releasedYear": 2011,
+			"averageNote": 1,
+			"notes": [
+				{
+					"note": 1,
+					"user": {
+						"username": "admin@test.com",
+						"password": "Adm!nistrat0r",
+						"role": "ROLE_ADMINISTRATOR",
+						"favouriteAuthor": "J.K. Rowling",
+						"favouriteBook": "Harry Potter and The Philosopher Stone",
+						"id": 1
+					}
+				}
+			]
+		}
+	]
 }

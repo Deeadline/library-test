@@ -47,3 +47,7 @@ Cypress.Commands.add('insertBook', (book) => {
 	cy.get('[data-cy-id="imageUrl"]').type(book.imageUrl);
 	cy.get('[data-cy="submit"]').click();
 })
+
+Cypress.Commands.add('logout', () => {
+	cy.get('[data-cy="logout"]').click();
+})

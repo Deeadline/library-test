@@ -20,5 +20,7 @@ declare namespace Cypress {
 			publishingHouse: string;
 			imageUrl: string
 		}): Chainable<Element>;
+
+		logout(): Chainable<Element>;
 	}
 }
