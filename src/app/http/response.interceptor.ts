@@ -64,11 +64,11 @@ export class ResponseInterceptor implements HttpInterceptor {
 	private handleGET(params: HttpParams, id: number, books: BookInterface[]): Observable<HttpResponse<unknown>> {
 		if (params.keys().length) {
 			const filters = Object.entries(params)
-				.filter(([key, _]: [string, Map<string, string[]>]) => key === 'map')
-				.map(([_, value]: [string, Map<string, string[]>]) => value).pop() as Map<string, string[]>;
+				.filter(([key, _]: [string, Map<string, number[] | string>]) => key === 'map')
+				.map(([_, value]: [string, Map<string, number[] | string>]) => value).pop() as Map<string, number[] | string>;
 			const filteredBooks = books.filter((book: BookInterface) => {
 				for (const [key, values] of filters) {
-					if (key === 'author') {
+					if (key === 'author' && values instanceof String) {
 						if (values[0].includes(book[key])) {
 							return book;
 						}
