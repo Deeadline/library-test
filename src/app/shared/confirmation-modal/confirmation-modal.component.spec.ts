@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { BookInterface } from '../../models/book.interface';
 
@@ -11,7 +11,9 @@ describe('ConfirmationModalComponent', () => {
 	let component: ConfirmationModalComponent;
 	let fixture: ComponentFixture<ConfirmationModalComponent>;
 	let element: HTMLElement;
-	const model = {} as BookInterface;
+	const model = {
+		isLoaned: false
+	} as BookInterface;
 	const mockDialogRef = {
 		close: createSpy('close')
 	};
@@ -48,8 +50,14 @@ describe('ConfirmationModalComponent', () => {
 		expect(component).toBeTruthy();
 	});
 
-	test('should display title with proper content', () => {
-		expect(element.querySelector('h1').textContent).toEqual('Do you want to do this action?');
+	test('should display title for returning book', () => {
+		component.book.isLoaned = true;
+		fixture.detectChanges();
+		expect(element.querySelector('h1')?.textContent).toContain('Do you want to return this book?');
+	});
+
+	test('should display title for loaning book', () => {
+		expect(element.querySelector('h1')?.textContent).toContain('Do you want to loan this book?');
 	});
 
 	test('should contain one div', () => {

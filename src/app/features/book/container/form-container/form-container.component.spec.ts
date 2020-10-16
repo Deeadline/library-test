@@ -14,9 +14,9 @@ describe('FormContainerComponent', () => {
 	let component: BookFormContainerComponent;
 	let fixture: ComponentFixture<BookFormContainerComponent>;
 	const mockedData = {
-		id: null,
-		description: null,
-		imageUrl: null,
+		id: undefined,
+		description: undefined,
+		imageUrl: undefined,
 		author: 'J.K. Rowling',
 		title: 'Harry Potter and the Philosopher Stone',
 		publishingHouse: 'Media Rodzina',
@@ -60,14 +60,16 @@ describe('FormContainerComponent', () => {
 		spyOn(component, 'createForm').and.callThrough();
 		component.ngOnInit();
 		fixture.detectChanges();
-		const requiredControls = Object.entries(component.formGroup.controls).map(([_, value]: [string, AbstractControl]) => {
-			if (value.validator) {
-				const validator = value.validator({} as AbstractControl);
-				if (validator && validator.required) {
-					return value;
+		const requiredControls = Object.entries(component.formGroup.controls)
+			.filter(([_, value]: [string, AbstractControl]) => {
+				if (value.validator) {
+					const validator = value.validator({} as AbstractControl);
+					if (validator && validator.required) {
+						return true;
+					}
 				}
-			}
-		}).filter((c: AbstractControl) => c);
+				return false;
+			});
 		expect(requiredControls).toHaveLength(4);
 	});
 

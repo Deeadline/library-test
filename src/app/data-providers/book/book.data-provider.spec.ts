@@ -17,7 +17,7 @@ const mockedBooksCollection: BookInterface[] = [
 
 const expectedError = {status: 500, statusText: 'Internal server error'};
 
-describe('Book.DataProviderService', () => {
+describe('BookDataProvider', () => {
 	let provider: BookDataProvider;
 	let service: BookService;
 

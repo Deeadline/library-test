@@ -2,7 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { AbstractControl, FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -68,14 +68,15 @@ describe('SignupComponent', () => {
 
 	test('should contain 3 required fields', () => {
 		const requiredControls = Object.entries(component.signupForm.controls)
-			.map(([_, value]: [string, AbstractControl]) => {
+			.filter(([_, value]: [string, AbstractControl]) => {
 				if (value.validator) {
 					const validator = value.validator({} as AbstractControl);
 					if (validator && validator.required) {
-						return value;
+						return true;
 					}
 				}
-			}).filter((c: AbstractControl) => c);
+				return false;
+			});
 		expect(requiredControls).toHaveLength(3);
 	});
 
@@ -123,14 +124,14 @@ describe('SignupComponent', () => {
 	});
 
 	test('Submit method should display snackBar', () => {
-		spyOn(component.authService, 'signup').and.returnValue(throwError({status: 500, error: 'Signup failed'}));
+		spyOn(component.authService, 'signup').and.returnValue(throwError({status: 500, message: 'Signup failed'}));
 		spyOn(component.snackBar, 'open');
 		const user = {username: 'admin@admin.com', password: 'Adm!nistrat0r', repeatPassword: 'Adm!nistrat0r'};
 		component.signupForm.patchValue(user);
 		fixture.detectChanges();
 		component.submit();
 		expect(component.snackBar.open).toHaveBeenCalledWith(
-			'Signup failed', null, {
+			'Signup failed', undefined, {
 				verticalPosition: 'top', duration: 5000
 			});
 	});

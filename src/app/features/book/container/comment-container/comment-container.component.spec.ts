@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -13,6 +14,7 @@ describe('CommentContainerComponent', () => {
 		comment: 'Good book. I really recommend it!',
 		createdAt: new Date()
 	} as UserCommentInterface;
+	const datePipe = new DatePipe('en-US');
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
@@ -33,14 +35,14 @@ describe('CommentContainerComponent', () => {
 	});
 
 	test('should display date', () => {
-		expect(fixture.debugElement.query(By.css('#createdAt'))).toBeTruthy();
+		expect(fixture.debugElement.query(By.css('#createdAt')).nativeElement.textContent).toContain(datePipe.transform(mockedData.createdAt, 'medium'));
 	});
 
 	test('should display username', () => {
-		expect(fixture.debugElement.query(By.css('#username'))).toBeTruthy();
+		expect(fixture.debugElement.query(By.css('#username')).nativeElement.textContent).toContain(mockedData.createdBy.username);
 	});
 
 	test('should display comment', () => {
-		expect(fixture.debugElement.query(By.css('#comment'))).toBeTruthy();
+		expect(fixture.debugElement.query(By.css('#comment')).nativeElement.textContent).toContain(mockedData.comment);
 	});
 });

@@ -10,7 +10,7 @@ import { UserInterface } from '../../models/user.interface';
 
 import { AuthDataProvider } from './auth.data-provider';
 
-describe('AuthService', () => {
+describe('AuthDataProvider', () => {
 	let dataProvider: AuthDataProvider;
 	let authService: AuthService;
 	let user: UserInterface;

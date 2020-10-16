@@ -114,7 +114,7 @@ describe('BookEditComponent', () => {
 		spyOn(component.snackBar, 'open');
 		component.onSubmit(mockedBook);
 		expect(component.snackBar.open).toHaveBeenCalledWith(
-			'Book has been successfully modified', null, {
+			'Book has been successfully modified', undefined, {
 				verticalPosition: 'top', duration: 5000
 			});
 	});
@@ -132,7 +132,7 @@ describe('BookEditComponent', () => {
 		spyOn(component.snackBar, 'open');
 		component.onSubmit(mockedBook);
 		expect(component.snackBar.open).toHaveBeenCalledWith(
-			'Book has not been modified', null, {
+			'Book has not been modified', undefined, {
 				verticalPosition: 'top', duration: 5000
 			});
 	});

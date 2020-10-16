@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -38,9 +39,9 @@ export class LoginComponent implements OnInit {
 			this.isLoading = true;
 			this.authService.login(this.loginForm.value as UserInterface)
 				.subscribe(() => {
-				}, () => {
+				}, (error: HttpErrorResponse) => {
 					this.isLoading = false;
-					this.snackBar.open('Login failed', undefined, {
+					this.snackBar.open(error.message, undefined, {
 						verticalPosition: 'top', duration: 5000
 					});
 				}, () => {

@@ -51,10 +51,6 @@ describe('LoginComponent', () => {
 		fixture = TestBed.createComponent(LoginComponent);
 		component = fixture.componentInstance;
 		routerMock = TestBed.inject(Router);
-		fixture.detectChanges();
-	});
-
-	beforeEach(() => {
 		component.ngOnInit();
 		fixture.detectChanges();
 	});
@@ -118,14 +114,14 @@ describe('LoginComponent', () => {
 	});
 
 	test('Submit method should display snackBar', () => {
-		spyOn(component.authService, 'login').and.returnValue(throwError({status: 500, error: 'Login failed'}));
+		spyOn(component.authService, 'login').and.returnValue(throwError({status: 500, message: 'Login failed'}));
 		spyOn(component.snackBar, 'open');
 		const user = {username: 'admin@admin.com', password: 'Adm!nistrat0r'} as UserInterface;
 		component.loginForm.patchValue(user);
 		fixture.detectChanges();
 		component.submit();
 		expect(component.snackBar.open).toHaveBeenCalledWith(
-			'Login failed', null, {
+			'Login failed', undefined, {
 				verticalPosition: 'top', duration: 5000
 			});
 	});

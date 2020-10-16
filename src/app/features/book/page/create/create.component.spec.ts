@@ -91,7 +91,7 @@ describe('BookCreateComponent', () => {
 		spyOn(component.snackBar, 'open');
 		component.onSubmit(mockedBook);
 		expect(component.snackBar.open).toHaveBeenCalledWith(
-			'Book has been successfully added', null, {
+			'Book has been successfully added', undefined, {
 				verticalPosition: 'top', duration: 5000
 			});
 	});
@@ -111,7 +111,7 @@ describe('BookCreateComponent', () => {
 		spyOn(component.snackBar, 'open');
 		component.onSubmit(mockedBook);
 		expect(component.snackBar.open).toHaveBeenCalledWith(
-			'Book has not been added', null, {
+			'Book has not been added', undefined, {
 				verticalPosition: 'top', duration: 5000
 			});
 	});
