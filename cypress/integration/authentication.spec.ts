@@ -12,20 +12,19 @@ describe('Authentication module', () => {
 		cy.fixture('example.json').then((f: FixtureType) => {
 			fixtures = f;
 		});
-	});
-
-	beforeEach(() => {
 		cy.visit('/auth/login');
 	});
 
-	it('Visit login page', () => {
+	it('Should authenticate user', () => {
 		cy.url().should('include', '/auth/login');
+		localStorage.setItem('users', JSON.stringify(fixtures['fetch-users']));
+		cy.login(fixtures['admin-login']);
+		cy.url().should('include', '/app/book');
 	});
 
 	it('Display error on login', () => {
-		cy.get('#email').type('admin@test.com');
-		cy.get('#password').type('Adm!nistrat0r');
-		cy.get('button[type="submit"]').click();
+		cy.url().should('include', '/auth/login');
+		cy.login(fixtures['admin-login']);
 		cy.get('simple-snack-bar').contains('Login failed');
 	});
 
@@ -38,12 +37,6 @@ describe('Authentication module', () => {
 		cy.get('button[type="button"]').click();
 		cy.url().should('include', '/auth/signup');
 		cy.signup(fixtures['signup-mock']);
-		cy.url().should('include', '/app/book');
-	});
-
-	it('Should authenticate user', () => {
-		localStorage.setItem('users', JSON.stringify(fixtures['fetch-users']));
-		cy.login(fixtures['admin-login']);
 		cy.url().should('include', '/app/book');
 	});
 

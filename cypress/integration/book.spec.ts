@@ -120,14 +120,14 @@ describe('Book module', () => {
 			cy.get('[data-cy="years"]').click();
 			cy.get('.p-multiselect-item[aria-label="2001"]').click();
 			cy.get('.p-multiselect-item[aria-label="2004"]').click();
-			cy.wait(600).get('[data-cy="list-toolbar"]').click();
+			cy.get('[data-cy="list-toolbar"]').click();
 			cy.get('[data-cy="book"]').should('have.length', 2);
 		});
 
 		it('should have 5 elements when search by notes range', () => {
 			cy.get('[data-cy="notes"]').click();
 			cy.get('.p-multiselect-item[aria-label="1"]').click();
-			cy.wait(600).get('[data-cy="list-toolbar"]').click();
+			cy.get('[data-cy="list-toolbar"]').click();
 			cy.get('[data-cy="book"]').should('have.length', 5);
 		});
 	});

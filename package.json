@@ -51,7 +51,6 @@
     "cypress": "^4.9.0",
     "jest": "^26.1.0",
     "jest-preset-angular": "^8.2.1",
-    "json-server": "^0.16.1",
     "start-server-and-test": "^1.11.0",
     "ts-loader": "^7.0.5",
     "ts-node": "~8.3.0",
