@@ -1,7 +1,19 @@
 /// <reference types="cypress"/>
+// tslint:disable-next-line:no-reference-import
 /// <reference types="../support"/>
 
+import { FixtureType } from '../support';
+
 describe('Authentication module', () => {
+
+	let fixtures: FixtureType;
+
+	beforeEach(() => {
+		cy.fixture('example.json').then((f: FixtureType) => {
+			fixtures = f;
+		});
+	});
+
 	beforeEach(() => {
 		cy.visit('/auth/login');
 	});
@@ -25,47 +37,21 @@ describe('Authentication module', () => {
 	it('Should register user', () => {
 		cy.get('button[type="button"]').click();
 		cy.url().should('include', '/auth/signup');
-		cy.signup({
-			username: 'admin@test.com',
-			password: 'Adm!nistrat0r',
-			repeatPassword: 'Adm!nistrat0r',
-			favouriteAuthor: 'J.K. Rowling',
-			favouriteBook: 'Harry Potter and The Philosopher Stone'
-		});
+		cy.signup(fixtures['signup-mock']);
 		cy.url().should('include', '/app/book');
 	});
 
 	it('Should authenticate user', () => {
-		localStorage.setItem('users', JSON.stringify([{
-			username: 'admin@test.com',
-			password: 'Adm!nistrat0r',
-			role: 'ROLE_ADMINISTRATOR',
-			favouriteAuthor: 'J.K. Rowling',
-			favouriteBook: 'Harry Potter and The Philosopher Stone',
-			id: 1
-		}]));
-		cy.login({email: 'admin@test.com', password: 'Adm!nistrat0r'});
+		localStorage.setItem('users', JSON.stringify(fixtures['fetch-users']));
+		cy.login(fixtures['admin-login']);
 		cy.url().should('include', '/app/book');
 	});
 
 	it('Display error on register user', () => {
-		localStorage.setItem('users', JSON.stringify([{
-			username: 'admin@test.com',
-			password: 'Adm!nistrat0r',
-			role: 'ROLE_ADMINISTRATOR',
-			favouriteAuthor: 'J.K. Rowling',
-			favouriteBook: 'Harry Potter and The Philosopher Stone',
-			id: 1
-		}]));
+		localStorage.setItem('users', JSON.stringify(fixtures['fetch-users']));
 		cy.get('button[type="button"]').click();
 		cy.url().should('include', '/auth/signup');
-		cy.signup({
-			username: 'admin@test.com',
-			password: 'Adm!nistrat0r',
-			repeatPassword: 'Adm!nistrat0r',
-			favouriteAuthor: 'J.K. Rowling',
-			favouriteBook: 'Harry Potter and The Philosopher Stone'
-		});
+		cy.signup(fixtures['signup-mock']);
 		cy.get('simple-snack-bar').contains('Signup failed');
 	});
 });

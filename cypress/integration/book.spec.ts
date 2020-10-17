@@ -1,19 +1,5 @@
 import { BookInterface } from '../../src/app/models/book.interface';
-import { UserInterface } from '../../src/app/models/user.interface';
-
-type FixtureType = {
-	'admin-login': {
-		'email': string,
-		'password': string
-	},
-	'user-login': {
-		'email': string,
-		'password': string
-	},
-	'fetch-users': UserInterface[],
-	'example-book': BookInterface,
-	'example-list-of-book': BookInterface[]
-};
+import { FixtureType } from '../support';
 
 type RequiredBookType = Required<BookInterface>;
 type InsertBookType = Pick<RequiredBookType, 'title' | 'releasedYear' | 'author' | 'publishingHouse' | 'imageUrl'>;

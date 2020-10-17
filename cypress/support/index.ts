@@ -14,8 +14,32 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+import '@testing-library/cypress/add-commands';
+
+import { BookInterface } from '../../src/app/models/book.interface';
+import { UserInterface } from '../../src/app/models/user.interface';
+
 import './commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
-import '@testing-library/cypress/add-commands';
+export type FixtureType = {
+	'admin-login': {
+		'email': string,
+		'password': string
+	},
+	'user-login': {
+		'email': string,
+		'password': string
+	},
+	'fetch-users': UserInterface[],
+	'example-book': BookInterface,
+	'example-list-of-book': BookInterface[],
+	'signup-mock': {
+		username: string,
+		password: string,
+		repeatPassword: string,
+		favouriteAuthor: string,
+		favouriteBook: string
+	}
+};

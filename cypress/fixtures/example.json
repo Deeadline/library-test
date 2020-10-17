@@ -7,6 +7,13 @@
 		"email": "user@test.com",
 		"password": "Testuser!23"
 	},
+	"signup-mock": {
+		"username": "admin@test.com",
+		"password": "Adm!nistrat0r",
+		"repeatPassword": "Adm!nistrat0r",
+		"favouriteAuthor": "J.K. Rowling",
+		"favouriteBook": "Harry Potter and The Philosopher Stone"
+	},
 	"fetch-users": [
 		{
 			"username": "admin@test.com",
