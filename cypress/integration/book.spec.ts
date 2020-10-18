@@ -62,7 +62,7 @@ describe('Book module', () => {
 		});
 	});
 
-	describe.only('User block', () => {
+	describe('User block', () => {
 		const loginAsUser = () => {
 			cy.url().should('include', '/auth/login');
 			cy.login(fixtures['user-login']);

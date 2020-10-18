@@ -125,6 +125,17 @@ describe('BookDataProvider', () => {
 		expect(result).toEqual(mockedBooksCollection);
 	});
 
+	test('getAll() should call getList', () => {
+		spyOn(service, 'getList');
+		provider.getAll();
+		expect(service.getList).toHaveBeenCalled();
+	});
+
+	test('getAll() should return 500 if backend return error', () => {
+		spyOn(provider, 'getAll').and.returnValue(expectedError);
+		expect(provider.getAll()).toEqual(expectedError);
+	});
+
 	test('getAll() should return filtered items', () => {
 		let result: BookInterface[] = [];
 		const filteredItems = mockedBooksCollection.filter((y: BookInterface) => y.author === 'J.K. Rowling');
@@ -150,16 +161,5 @@ describe('BookDataProvider', () => {
 		provider.getAll({author: 'J.K. Rowling'});
 		const mockedParams = new HttpParams().append('author', 'J.K. Rowling');
 		expect(service.getListByQuery).toHaveBeenCalledWith(mockedParams);
-	});
-
-	test('getAll() should call getList', () => {
-		spyOn(service, 'getList');
-		provider.getAll();
-		expect(service.getList).toHaveBeenCalled();
-	});
-
-	test('getAll() should return 500 if backend return error', () => {
-		spyOn(provider, 'getAll').and.returnValue(expectedError);
-		expect(provider.getAll()).toEqual(expectedError);
 	});
 });

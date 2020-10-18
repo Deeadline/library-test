@@ -14,6 +14,7 @@ describe('CommentContainerComponent', () => {
 		comment: 'Good book. I really recommend it!',
 		createdAt: new Date()
 	} as UserCommentInterface;
+
 	const datePipe = new DatePipe('en-US');
 
 	beforeEach(async(() => {
